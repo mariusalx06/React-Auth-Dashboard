@@ -1,23 +1,25 @@
-'use client';  // Ensure this is a client component
+'use client';
 
 import { signIn, useSession } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Loading from '@/app/components/Loading';
 
 export default function SignIn() {
-  const { status, data: session } = useSession();  // Get session data
+  const { status, data: session } = useSession();
   const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [user,setUser] = useState({
+    email:"",
+    password:"",
+  })
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // Redirect user if already authenticated
     if (status === 'authenticated') {
       router.push('/dashboard');
     }
-  }, [status, router]);  // Only run the effect when session status changes
+  }, [status, router]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,40 +28,59 @@ export default function SignIn() {
 
     const res = await signIn('credentials', {
       redirect: false,
-      email,
-      password,
+      email:user.email,
+      password:user.password,
     });
 
     if (res?.error) {
       setError(res.error);
       setIsLoading(false);
     } else {
-      // On successful sign-in, redirect to /dashboard
       router.push('/dashboard');
     }
+  };
+
+  const handleChange = async(event)=>{
+    const {name,value}= event.target;
+
+    setUser(prevUserDetails=>{
+      return{
+        ...prevUserDetails,
+        [name]:value,
+      }
+    })
+  }
+
+  const handleRegisterRedirect = () => {
+    router.push('/auth/register');
+  };
+  const handleGitHubLogin = () => {
+    signIn('github', { callbackUrl: '/dashboard' })
   };
 
   return (
     <div>
       <h1>Sign In</h1>
-      {status === 'loading' && <p>Loading...</p>} {/* Show loading text while session is being fetched */}
+      {status === 'loading' && <Loading />}
 
       <form onSubmit={handleSubmit}>
         <div>
           <label>Email</label>
           <input
+            name="email"
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={user.email}
+            onChange={handleChange}
             required
           />
         </div>
         <div>
           <label>Password</label>
           <input
+            name="password"
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={user.password}
+            onChange={handleChange}
             required
           />
         </div>
@@ -71,7 +92,7 @@ export default function SignIn() {
 
       <div>
         <button
-          onClick={() => signIn('github', { callbackUrl: '/dashboard' })}
+          onClick={handleGitHubLogin}
           disabled={isLoading}
         >
           Sign In with GitHub
@@ -79,8 +100,10 @@ export default function SignIn() {
       </div>
 
       <p>
-        Don't have an account? <a href="/auth/register">Register</a>
+      Don't have an account?{' '}
+      <button onClick={handleRegisterRedirect}>Register</button>
       </p>
+      <button onClick={()=>{router.push('/');}}>Home</button>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import client from '../../../../lib/db';
+import database from '../../../../lib/db';
 import bcrypt from 'bcryptjs';
 
 export async function POST(req) {
@@ -9,7 +9,7 @@ export async function POST(req) {
 
   try {
     // Insert the new user into the database
-    const result = await client.query(
+    const result = await database.query(
       'INSERT INTO users (email, password, name) VALUES ($1, $2, $3) RETURNING *',
       [email, hashedPassword, name]
     );
