@@ -10,7 +10,7 @@ export default function Dashboard() {
 
   return (
     
-    <div className="dashboard-container">
+    <div>
       <SessionTimeout />
       <h1>Welcome, {session?.user?.name}!</h1>
       <p>You are now logged in and viewing your dashboard.</p>

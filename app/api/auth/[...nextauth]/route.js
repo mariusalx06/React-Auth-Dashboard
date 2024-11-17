@@ -51,31 +51,39 @@ export const authOptions = {
   },
   callbacks: {
     async jwt({ token, user, account }) {
-      if (account?.provider === 'github' && user) {
-        const { email, name } = user;
-        const existingUser = await database.query('SELECT * FROM users WHERE email = $1', [email]);
-        
-        if (existingUser.rowCount === 0) {
-          await database.query(
-            'INSERT INTO users (email, password, name) VALUES ($1, $2, $3) RETURNING *',
-            [email, 'Github', name]
-          );
-        }
-        token.id = user.id;
-        token.email = email;
-        token.name = name;
-      }
       if (user) {
         token.id = user.id;
         token.email = user.email;
         token.name = user.name;
+  
+        // Check if the user is logging in via GitHub
+        if (account?.provider === 'github') {
+          // Ensure user is stored in your database if they're new
+          const { email, name } = user;
+          const existingUser = await database.query('SELECT * FROM users WHERE email = $1', [email]);
+  
+          if (existingUser.rowCount === 0) {
+            // New user, insert into the database
+            await database.query(
+              'INSERT INTO users (email, password, name) VALUES ($1, $2, $3) RETURNING *',
+              [email, 'Github', name]
+            );
+          }
+        }
+  
+        // Store the provider (github or credentials) in the token
+        token.provider = account?.provider;  // Store the provider (github or credentials) here
       }
+  
       return token;
     },
+  
     async session({ session, token }) {
       session.user.id = token.id;
       session.user.email = token.email;
       session.user.name = token.name;
+      session.provider = token.provider;  // Add provider to session so it's available on the frontend
+  
       return session;
     },
   },
