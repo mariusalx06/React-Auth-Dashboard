@@ -166,7 +166,7 @@ export default function SessionTimeout() {
     return (
       <div className={styles.overlay}>
         <div className={styles.messageContainer}>
-          <p>Your session is about to expire. Please re-enter your password to stay logged in:</p>
+          <p>Please re-enter your password to stay logged in:</p>
           <p>Email: {session?.user?.email}</p>
           <input
             type="password"
@@ -177,6 +177,7 @@ export default function SessionTimeout() {
           {errorMessage && <p className={styles.error}>{errorMessage}</p>}
           <button onClick={handlePasswordSubmit}>Submit</button>
           <button onClick={() => signOut({ callbackUrl: '/' })}>Log Out</button>
+          <p>{remainingTime} seconds</p>
         </div>
       </div>
     );
