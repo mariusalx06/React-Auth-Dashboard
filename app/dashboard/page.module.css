@@ -1,11 +1,9 @@
-/* Dashboard Page Styles */
-
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f4f4f9; /* Light background */
+  background-color: #f4f4f9;
   padding: 20px;
 }
 
@@ -21,13 +19,13 @@
 
 .welcome {
   font-size: 2rem;
-  color: #333; /* Dark text for good readability */
+  color: #333;
   margin-bottom: 20px;
 }
 
 .message {
   font-size: 1.2rem;
-  color: #666; /* Lighter text for the body */
+  color: #666;
   margin-bottom: 40px;
 }
 
@@ -47,22 +45,22 @@
 }
 
 .logoutButton {
-  background-color: #d84b4b; /* Red for logout */
+  background-color: #d84b4b;
   color: white;
 }
 
 .logoutButton:hover {
-  background-color: #9e2a2a; /* Darker red on hover */
+  background-color: #9e2a2a;
   transform: scale(1.05);
 }
 
 .homeButton {
-  background-color: #6366f1; /* Blue for home */
+  background-color: #6366f1;
   color: white;
 }
 
 .homeButton:hover {
-  background-color: #4b56e5; /* Darker blue on hover */
+  background-color: #4b56e5;
   transform: scale(1.05);
 }
 

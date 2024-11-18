@@ -23,7 +23,7 @@ export default function SessionPopup(props) {
               onChange={props.onPasswordChange}
               placeholder="Enter your password"
               autoFocus
-              onKeyDown={handleKeyDown} // Handle Enter key press
+              onKeyDown={handleKeyDown}
             />
             {props.errorMessage && (
               <p className={styles.error}>{props.errorMessage}</p>

@@ -30,13 +30,12 @@ export default function SessionTimeout() {
       const remainingTimeInSeconds = Math.floor(remainingTimeInMs / 1000);
       setRemainingTime(remainingTimeInSeconds);
 
-      // Clear previous timers to avoid overlapping
       if (logoutTimerRef.current) clearTimeout(logoutTimerRef.current);
       logoutTimerRef.current = setTimeout(() => {
         signOut({ callbackUrl: "/" });
       }, remainingTimeInMs);
 
-      const showWarningTimeInMs = remainingTimeInMs - 45000; // Show warning 45 seconds before expiration
+      const showWarningTimeInMs = remainingTimeInMs - 45000;
       if (showWarningTimeInMs > 0) {
         if (sessionWarningTimerRef.current)
           clearTimeout(sessionWarningTimerRef.current);

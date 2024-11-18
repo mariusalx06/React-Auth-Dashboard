@@ -2,7 +2,7 @@
 import { useSession, signOut } from "next-auth/react";
 import SessionTimeout from "@/app/components/SessionTimeout";
 import { useRouter } from "next/navigation";
-import styles from "./page.module.css"; // Import the CSS module
+import styles from "./page.module.css";
 
 export default function Dashboard() {
   const { data: session, status } = useSession();

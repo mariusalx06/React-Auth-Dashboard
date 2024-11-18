@@ -141,9 +141,9 @@ export default function Register() {
 
         <button
           onClick={() => {
-            router.push("/auth/signin"); // Redirect to the SignIn page
+            router.push("/auth/signin");
           }}
-          className={`${styles.button} ${styles.loginButton}`} // Apply the button style here
+          className={`${styles.button} ${styles.loginButton}`}
         >
           Already have an account? LogIn
         </button>
