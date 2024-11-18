@@ -1,0 +1,83 @@
+/* Header styling */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #1a202c;
+  color: white;
+  padding: 1rem 2rem;
+  z-index: 1000;
+  transition: transform 0.3s ease;
+}
+
+.hidden {
+  transform: translateY(-100%);
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.link {
+  color: white;
+  font-size: 1.1rem;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease, transform 0.3s ease;
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-weight: 500;
+  overflow: hidden;
+  display: inline-block;
+}
+
+/* Normal hover effect for links */
+.link:hover {
+  color: #6366f1; /* Purple hover color */
+  transform: scale(1.2); /* Slightly scale up on hover */
+  box-shadow: 0 0 8px rgba(99, 102, 241, 0.5);
+  /* Glow effect */
+}
+
+/* Active link styling */
+.active {
+  font-weight: 700;
+  color: #6366f1;
+  text-shadow: 0 0 10px rgba(99, 102, 241, 0.8),
+    0 0 20px rgba(99, 102, 241, 0.6); /* Glowing effect */
+  transform: scale(1.1);
+  position: relative;
+  box-shadow: 0 0 8px rgba(99, 102, 241, 0.5);
+}
+
+/* Active link border shadow effect */
+.active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px; /* Same as the link border radius */
+  background: transparent;
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.8), 0 0 20px rgba(99, 102, 241, 0.6); /* Glowing shadow effect */
+  transition: box-shadow 0.3s ease;
+  z-index: -1; /* Place shadow behind text */
+}

@@ -1,7 +1,7 @@
 "use client";
-import styles from "@/app/components/SessionTimeout.module.css";
+
 import { signOut, useSession, signIn, getSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import SessionPopup from "./SessionPopup";
 
@@ -15,10 +15,13 @@ export default function SessionTimeout() {
   const [errorMessage, setErrorMessage] = useState("");
   const [isPasswordPromptVisible, setPasswordPromptVisible] = useState(false);
 
-  let logoutTimerRef, sessionWarningTimerRef, countdownIntervalRef;
+  const logoutTimerRef = useRef(null);
+  const sessionWarningTimerRef = useRef(null);
+  const countdownIntervalRef = useRef(null);
 
   useEffect(() => {
     if (status === "loading" || status === "unauthenticated") return;
+
     const expirationTime = session?.expires;
     if (expirationTime) {
       const expirationTimeInMs = new Date(expirationTime).getTime();
@@ -27,33 +30,36 @@ export default function SessionTimeout() {
       const remainingTimeInSeconds = Math.floor(remainingTimeInMs / 1000);
       setRemainingTime(remainingTimeInSeconds);
 
-      clearTimeout(logoutTimerRef);
-      logoutTimerRef = setTimeout(() => {
+      // Clear previous timers to avoid overlapping
+      if (logoutTimerRef.current) clearTimeout(logoutTimerRef.current);
+      logoutTimerRef.current = setTimeout(() => {
         signOut({ callbackUrl: "/" });
       }, remainingTimeInMs);
 
-      const showWarningTimeInMs = remainingTimeInMs - 45000;
+      const showWarningTimeInMs = remainingTimeInMs - 45000; // Show warning 45 seconds before expiration
       if (showWarningTimeInMs > 0) {
-        sessionWarningTimerRef = setTimeout(() => {
+        if (sessionWarningTimerRef.current)
+          clearTimeout(sessionWarningTimerRef.current);
+        sessionWarningTimerRef.current = setTimeout(() => {
           setShowPrompt(true);
         }, showWarningTimeInMs);
       }
 
-      countdownIntervalRef = setInterval(() => {
+      countdownIntervalRef.current = setInterval(() => {
         const updatedRemainingTimeInMs = expirationTimeInMs - Date.now();
         const updatedRemainingTimeInSeconds = Math.floor(
           updatedRemainingTimeInMs / 1000
         );
         setRemainingTime(updatedRemainingTimeInSeconds);
         if (updatedRemainingTimeInSeconds <= 0) {
-          clearInterval(countdownIntervalRef);
+          clearInterval(countdownIntervalRef.current);
         }
       }, 1000);
 
       return () => {
-        clearTimeout(logoutTimerRef);
-        clearTimeout(sessionWarningTimerRef);
-        clearInterval(countdownIntervalRef);
+        clearTimeout(logoutTimerRef.current);
+        clearTimeout(sessionWarningTimerRef.current);
+        clearInterval(countdownIntervalRef.current);
       };
     }
   }, [status, session]);
@@ -82,14 +88,14 @@ export default function SessionTimeout() {
       const remainingTimeInMs = expirationTimeInMs - Date.now();
       setRemainingTime(Math.floor(remainingTimeInMs / 1000));
 
-      clearTimeout(logoutTimerRef);
-      logoutTimerRef = setTimeout(() => {
+      clearTimeout(logoutTimerRef.current);
+      logoutTimerRef.current = setTimeout(() => {
         signOut({ callbackUrl: "/" });
       }, remainingTimeInMs);
 
       const showWarningTimeInMs = remainingTimeInMs - 45000;
       if (showWarningTimeInMs > 0) {
-        sessionWarningTimerRef = setTimeout(() => {
+        sessionWarningTimerRef.current = setTimeout(() => {
           setShowPrompt(true);
         }, showWarningTimeInMs);
       }
@@ -98,8 +104,8 @@ export default function SessionTimeout() {
 
   const stayLoggedIn = async () => {
     setShowPrompt(false);
-    clearTimeout(logoutTimerRef);
-    clearTimeout(sessionWarningTimerRef);
+    clearTimeout(logoutTimerRef.current);
+    clearTimeout(sessionWarningTimerRef.current);
 
     if (session?.user?.email && session?.provider === "credentials") {
       setPasswordPromptVisible(true);

@@ -1,0 +1,85 @@
+/* Dashboard Page Styles */
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f9; /* Light background */
+  padding: 20px;
+}
+
+.content {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.welcome {
+  font-size: 2rem;
+  color: #333; /* Dark text for good readability */
+  margin-bottom: 20px;
+}
+
+.message {
+  font-size: 1.2rem;
+  color: #666; /* Lighter text for the body */
+  margin-bottom: 40px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 20px;
+}
+
+.buttons button {
+  padding: 12px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.logoutButton {
+  background-color: #d84b4b; /* Red for logout */
+  color: white;
+}
+
+.logoutButton:hover {
+  background-color: #9e2a2a; /* Darker red on hover */
+  transform: scale(1.05);
+}
+
+.homeButton {
+  background-color: #6366f1; /* Blue for home */
+  color: white;
+}
+
+.homeButton:hover {
+  background-color: #4b56e5; /* Darker blue on hover */
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding: 20px;
+  }
+
+  .welcome {
+    font-size: 1.8rem;
+  }
+
+  .message {
+    font-size: 1rem;
+  }
+
+  .buttons button {
+    font-size: 0.9rem;
+  }
+}

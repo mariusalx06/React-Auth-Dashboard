@@ -1,13 +1,26 @@
-import database from '../../../../lib/db';
-import bcrypt from 'bcryptjs';
+import database from "../../../../lib/db";
+import bcrypt from "bcryptjs";
 
 export async function POST(req) {
   const { email, password, name } = await req.json();
-  const hashedPassword = await bcrypt.hash(password, 12);
 
   try {
+    const userCheck = await database.query(
+      "SELECT * FROM users WHERE email = $1",
+      [email]
+    );
+
+    if (userCheck.rowCount > 0) {
+      return new Response(
+        JSON.stringify({ message: "User already registered" }),
+        { status: 400 }
+      );
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 12);
+
     const result = await database.query(
-      'INSERT INTO users (email, password, name) VALUES ($1, $2, $3) RETURNING *',
+      "INSERT INTO users (email, password, name) VALUES ($1, $2, $3) RETURNING *",
       [email, hashedPassword, name]
     );
 
@@ -16,10 +29,9 @@ export async function POST(req) {
       { status: 201 }
     );
   } catch (error) {
-    console.error('Error inserting user', error);
-    return new Response(
-      JSON.stringify({ message: 'Internal server error' }),
-      { status: 500 }
-    );
+    console.error("Error registering user", error);
+    return new Response(JSON.stringify({ message: "Internal server error" }), {
+      status: 500,
+    });
   }
 }

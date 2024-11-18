@@ -1,7 +1,7 @@
 "use client";
 import styles from "@/app/components/SessionPopup.module.css";
 
-export default function Popup(props) {
+export default function SessionPopup(props) {
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       props.buttonAction();
