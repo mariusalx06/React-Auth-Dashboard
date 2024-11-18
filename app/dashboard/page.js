@@ -1,5 +1,4 @@
-'use client';  // Mark as client component because we use useSession and useRouter
-
+'use client'
 import { useSession, signOut } from 'next-auth/react';
 import SessionTimeout from '@/app/components/SessionTimeout';
 import { useRouter } from 'next/navigation';

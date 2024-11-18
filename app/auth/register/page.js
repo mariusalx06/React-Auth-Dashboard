@@ -1,4 +1,4 @@
-'use client'; // Mark as client component to use hooks like `useSession`
+'use client';
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -6,7 +6,7 @@ import { useSession, signIn } from 'next-auth/react';
 import axios from 'axios';
 
 export default function Register() {
-  const { data: session, status } = useSession();  // Get session data
+  const { data: session, status } = useSession();
   const router = useRouter();
   const [user, setUser] = useState({
     name: '',
@@ -15,10 +15,9 @@ export default function Register() {
   });
   const [error, setError] = useState('');
 
-  // Redirect authenticated users to the dashboard
   useEffect(() => {
     if (status === 'authenticated') {
-      router.push('/dashboard');  // Redirect to dashboard if logged in
+      router.push('/dashboard');
     }
   }, [status, router]);
 
@@ -32,11 +31,10 @@ export default function Register() {
       return;
     }
 
-    // Register the user via API
     try {
       const response = await axios.post('/api/auth/register', { email, password, name });
       if (response.data.success) {
-        router.push('/auth/signin');  // Redirect to login page after successful registration
+        router.push('/auth/signin');
       } else {
         setError(response.data.message);
       }

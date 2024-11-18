@@ -25,13 +25,13 @@
 }
 
 .spinner {
-    border: 4px solid rgba(255, 255, 255, 0.3); /* Light gray background */
-    border-top: 4px solid #007bff; /* Blue color for the spinner */
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #007bff;
     border-radius: 50%;
     width: 30px;
     height: 30px;
-    margin-right: 10px; /* Space between the spinner and the text */
-    animation: spin 1s linear infinite; /* Rotate the spinner */
+    margin-right: 10px;
+    animation: spin 1s linear infinite;
 }
   
   @keyframes spin {

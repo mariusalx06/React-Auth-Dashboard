@@ -1,4 +1,4 @@
-'use client';
+'use client'
 import styles from "@/app/components/SessionTimeout.module.css";
 import { signOut, useSession, signIn, getSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
