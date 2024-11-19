@@ -1,5 +1,4 @@
 "use client";
-
 import { signOut, useSession, signIn, getSession } from "next-auth/react";
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
@@ -9,59 +8,68 @@ export default function SessionTimeout() {
   const { status, data: session } = useSession();
   const router = useRouter();
   const [countdown, setCountdown] = useState(5);
-  const [remainingTime, setRemainingTime] = useState(0);
   const [showPrompt, setShowPrompt] = useState(false);
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isPasswordPromptVisible, setPasswordPromptVisible] = useState(false);
-
+  const [responseTimeout, setResponseTimeout] = useState(45);
   const logoutTimerRef = useRef(null);
+  const inactivityTimerRef = useRef(null);
   const sessionWarningTimerRef = useRef(null);
-  const countdownIntervalRef = useRef(null);
+  const lastActivityTime = useRef(Date.now());
+  const INACTIVITY_THRESHOLD = 30 * 60 * 1000; //30*60*1000 = 30 mins
+
+  const resetInactivityTimer = () => {
+    if (inactivityTimerRef.current) clearTimeout(inactivityTimerRef.current);
+    inactivityTimerRef.current = setTimeout(() => {
+      setShowPrompt(true);
+    }, INACTIVITY_THRESHOLD);
+  };
+
+  const handleUserActivity = () => {
+    lastActivityTime.current = Date.now();
+    if (!isPasswordPromptVisible) {
+      resetInactivityTimer();
+    }
+  };
 
   useEffect(() => {
-    if (status === "loading" || status === "unauthenticated") return;
-
-    const expirationTime = session?.expires;
-    if (expirationTime) {
-      const expirationTimeInMs = new Date(expirationTime).getTime();
-      const currentTimeInMs = Date.now();
-      const remainingTimeInMs = expirationTimeInMs - currentTimeInMs;
-      const remainingTimeInSeconds = Math.floor(remainingTimeInMs / 1000);
-      setRemainingTime(remainingTimeInSeconds);
-
-      if (logoutTimerRef.current) clearTimeout(logoutTimerRef.current);
-      logoutTimerRef.current = setTimeout(() => {
-        signOut({ callbackUrl: "/" });
-      }, remainingTimeInMs);
-
-      const showWarningTimeInMs = remainingTimeInMs - 45000;
-      if (showWarningTimeInMs > 0) {
-        if (sessionWarningTimerRef.current)
-          clearTimeout(sessionWarningTimerRef.current);
-        sessionWarningTimerRef.current = setTimeout(() => {
-          setShowPrompt(true);
-        }, showWarningTimeInMs);
-      }
-
-      countdownIntervalRef.current = setInterval(() => {
-        const updatedRemainingTimeInMs = expirationTimeInMs - Date.now();
-        const updatedRemainingTimeInSeconds = Math.floor(
-          updatedRemainingTimeInMs / 1000
-        );
-        setRemainingTime(updatedRemainingTimeInSeconds);
-        if (updatedRemainingTimeInSeconds <= 0) {
-          clearInterval(countdownIntervalRef.current);
-        }
+    let timer;
+    if (showPrompt || isPasswordPromptVisible) {
+      timer = setInterval(() => {
+        setResponseTimeout((prev) => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            signOut({ callbackUrl: "/" });
+            return 0;
+          }
+          return prev - 1;
+        });
       }, 1000);
-
-      return () => {
-        clearTimeout(logoutTimerRef.current);
-        clearTimeout(sessionWarningTimerRef.current);
-        clearInterval(countdownIntervalRef.current);
-      };
+    } else {
+      clearInterval(timer);
     }
-  }, [status, session]);
+    return () => clearInterval(timer);
+  }, [showPrompt, isPasswordPromptVisible]);
+
+  useEffect(() => {
+    if (isPasswordPromptVisible) {
+      clearTimeout(inactivityTimerRef.current);
+    } else {
+      resetInactivityTimer();
+    }
+  }, [isPasswordPromptVisible]);
+
+  useEffect(() => {
+    document.addEventListener("mousemove", handleUserActivity);
+    document.addEventListener("keydown", handleUserActivity);
+    document.addEventListener("click", handleUserActivity);
+    return () => {
+      document.removeEventListener("mousemove", handleUserActivity);
+      document.removeEventListener("keydown", handleUserActivity);
+      document.removeEventListener("click", handleUserActivity);
+    };
+  }, [isPasswordPromptVisible]);
 
   useEffect(() => {
     if (status === "loading" || status === "authenticated") return;
@@ -85,19 +93,10 @@ export default function SessionTimeout() {
     if (expirationTime) {
       const expirationTimeInMs = new Date(expirationTime).getTime();
       const remainingTimeInMs = expirationTimeInMs - Date.now();
-      setRemainingTime(Math.floor(remainingTimeInMs / 1000));
-
       clearTimeout(logoutTimerRef.current);
       logoutTimerRef.current = setTimeout(() => {
         signOut({ callbackUrl: "/" });
       }, remainingTimeInMs);
-
-      const showWarningTimeInMs = remainingTimeInMs - 45000;
-      if (showWarningTimeInMs > 0) {
-        sessionWarningTimerRef.current = setTimeout(() => {
-          setShowPrompt(true);
-        }, showWarningTimeInMs);
-      }
     }
   };
 
@@ -105,7 +104,6 @@ export default function SessionTimeout() {
     setShowPrompt(false);
     clearTimeout(logoutTimerRef.current);
     clearTimeout(sessionWarningTimerRef.current);
-
     if (session?.user?.email && session?.provider === "credentials") {
       setPasswordPromptVisible(true);
       return;
@@ -124,13 +122,11 @@ export default function SessionTimeout() {
       setErrorMessage("Please enter your password.");
       return;
     }
-
     const result = await signIn("credentials", {
       redirect: false,
       email: session?.user?.email,
       password: password,
     });
-
     if (result?.error) {
       setErrorMessage("Incorrect password. Please try again.");
     } else {
@@ -153,10 +149,10 @@ export default function SessionTimeout() {
     );
   }
 
-  if (showPrompt) {
+  if (showPrompt && !isPasswordPromptVisible) {
     return (
       <SessionPopup
-        displayText={`Your session is about to expire in ${remainingTime} seconds.\nDo you want to stay logged in?`}
+        displayText={`Your session is about to expire in ${responseTimeout} seconds.\nDo you want to stay logged in?`}
         buttonText="Stay Logged In"
         buttonAction={stayLoggedIn}
         buttonText2="Log Out"
@@ -178,7 +174,7 @@ export default function SessionTimeout() {
         buttonAction={handlePasswordSubmit}
         buttonText2="Log Out"
         buttonAction2={() => signOut({ callbackUrl: "/" })}
-        remainingTime={remainingTime}
+        remainingTime={responseTimeout}
       />
     );
   }
