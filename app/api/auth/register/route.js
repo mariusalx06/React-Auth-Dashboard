@@ -2,7 +2,7 @@ import database from "../../../../lib/db";
 import bcrypt from "bcryptjs";
 
 export async function POST(req) {
-  const { email, password, name } = await req.json();
+  const { email, password, name, agentid, role } = await req.json();
 
   try {
     const userCheck = await database.query(
@@ -20,8 +20,8 @@ export async function POST(req) {
     const hashedPassword = await bcrypt.hash(password, 12);
 
     const result = await database.query(
-      "INSERT INTO users (email, password, name) VALUES ($1, $2, $3) RETURNING *",
-      [email, hashedPassword, name]
+      "INSERT INTO users (email, password, name, agentid, role) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      [email, hashedPassword, name, agentid, role]
     );
 
     return new Response(

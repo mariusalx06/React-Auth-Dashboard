@@ -1,21 +1,10 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import GitHubProvider from "next-auth/providers/github";
 import bcrypt from "bcryptjs";
 import database from "@/lib/db";
 
 export const authOptions = {
   providers: [
-    GitHubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      authorization: {
-        params: {
-          scope: "read:user",
-        },
-      },
-    }),
-
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -50,7 +39,7 @@ export const authOptions = {
   },
   session: {
     strategy: "jwt",
-    maxAge: 60 * 60, // 60*60 -1h session duration
+    maxAge: 24 * 60 * 60, // 24 * 60 * 60 = 1day
   },
   callbacks: {
     async jwt({ token, user, account }) {
@@ -59,24 +48,17 @@ export const authOptions = {
         token.email = user.email;
         token.name = user.name;
 
-        if (account?.provider === "github") {
-          const { email, name } = user;
-          const existingUser = await database.query(
-            "SELECT * FROM users WHERE email = $1",
-            [email]
-          );
+        const userFromDb = await database.query(
+          "SELECT * FROM users WHERE email = $1",
+          [user.email]
+        );
 
-          if (existingUser.rowCount === 0) {
-            await database.query(
-              "INSERT INTO users (email, password, name) VALUES ($1, $2, $3) RETURNING *",
-              [email, "Github", name]
-            );
-          }
+        const existingUser = userFromDb.rows[0];
+        if (existingUser) {
+          token.agentid = existingUser.agentid;
         }
-
         token.provider = account?.provider;
       }
-
       return token;
     },
 
@@ -85,6 +67,7 @@ export const authOptions = {
       session.user.email = token.email;
       session.user.name = token.name;
       session.provider = token.provider;
+      session.user.agentid = token.agentid;
 
       return session;
     },
@@ -92,5 +75,4 @@ export const authOptions = {
 };
 
 const handler = NextAuth(authOptions);
-
 export { handler as GET, handler as POST };

@@ -74,10 +74,6 @@ export default function SignIn() {
     });
   };
 
-  const handleGitHubLogin = () => {
-    signIn("github", { callbackUrl: "/dashboard" });
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
@@ -116,16 +112,6 @@ export default function SignIn() {
             {isLoading ? "Signing In..." : "Sign In"}
           </button>
         </form>
-
-        <div>
-          <button
-            className={`${styles.button} ${styles.secondaryButton}`}
-            onClick={handleGitHubLogin}
-            disabled={isLoading}
-          >
-            Sign In with GitHub
-          </button>
-        </div>
 
         <button
           onClick={() => {

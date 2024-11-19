@@ -14,15 +14,26 @@ export default function Register() {
     name: "",
     email: "",
     password: "",
+    agentid: "",
   });
+  const [role, setRole] = useState("agent");
   const [error, setError] = useState("");
 
   const [showAlert, setShowAlert] = useState(false);
   const [countdown, setCountdown] = useState(5);
 
+  const [showRedirect, setShowRedirect] = useState(false);
+  const [countRedirect, setCountRedirect] = useState(5);
+
   useEffect(() => {
-    if (status === "authenticated") {
+    if (status === "authenticated" && session?.user?.agentid != "M001") {
       setShowAlert(true);
+    }
+    if (status === "authenticated" && session?.user?.agentid === "M001") {
+      return;
+    }
+    if (status === "unauthenticated") {
+      setShowRedirect(true);
     }
   }, [status]);
 
@@ -44,13 +55,32 @@ export default function Register() {
     }
   }, [showAlert, countdown, router]);
 
-  const handleSubmit = async (e) => {
+  useEffect(() => {
+    if (showRedirect && countRedirect > 0) {
+      const intervalRedirect = setInterval(() => {
+        setCountRedirect((prevCountdown) => {
+          if (prevCountdown === 1) {
+            clearInterval(intervalRedirect);
+            setTimeout(() => {
+              router.push("/auth/signin");
+            }, 300);
+          }
+          return prevCountdown - 1;
+        });
+      }, 1000);
+
+      return () => clearInterval(intervalRedirect);
+    }
+  }, [showRedirect, countRedirect, router]);
+
+  async function handleSubmit(e) {
     e.preventDefault();
 
-    const { email, password, name } = user;
+    const { email, password, name, agentid } = user;
+    const roleToSend = role || "agent";
 
-    if (!email || !password || !name) {
-      setError("All fields are required");
+    if (!email || !password || !name || !agentid || !roleToSend) {
+      setError("All fields are required, including AgentID and Role");
       return;
     }
 
@@ -59,7 +89,10 @@ export default function Register() {
         email,
         password,
         name,
+        agentid,
+        role: roleToSend,
       });
+
       if (response.data.success) {
         router.push("/auth/signin");
       } else {
@@ -69,7 +102,7 @@ export default function Register() {
       setError(error.response.data.message);
       console.log(error);
     }
-  };
+  }
 
   async function handleChange(event) {
     const { name, value } = event.target;
@@ -80,10 +113,6 @@ export default function Register() {
       };
     });
   }
-
-  const handleGitHubLogin = () => {
-    signIn("github", { callbackUrl: "/dashboard" });
-  };
 
   return (
     <div className={styles.container}>
@@ -123,6 +152,33 @@ export default function Register() {
               onChange={handleChange}
             />
           </div>
+
+          <div>
+            <label className={styles.label}>Select Role</label>
+            <select
+              className={styles.input}
+              value={role}
+              onChange={(e) => {
+                setRole(e.target.value);
+              }}
+              required
+            >
+              <option value="manager">Manager</option>
+              <option value="agent">Agent</option>
+            </select>
+          </div>
+          <div>
+            <label className={styles.label}>AgentID</label>
+            <input
+              className={styles.input}
+              name="agentid"
+              type="text"
+              placeholder="AgentID"
+              value={user.agentid}
+              onChange={handleChange}
+            />
+          </div>
+
           {error && <p className={styles.errorMessage}>{error}</p>}
           <button
             className={`${styles.button} ${styles.primaryButton}`}
@@ -131,13 +187,6 @@ export default function Register() {
             Register
           </button>
         </form>
-
-        <button
-          className={`${styles.button} ${styles.secondaryButton}`}
-          onClick={handleGitHubLogin}
-        >
-          Register/LogIn with GitHub
-        </button>
 
         <button
           onClick={() => {
@@ -153,6 +202,13 @@ export default function Register() {
           displayText={`You are already Logged In. Redirecting to Dashboard in ${countdown} seconds...`}
           buttonText="Proceed"
           buttonAction={() => router.push("/dashboard")}
+        />
+      )}
+      {showRedirect && (
+        <Alert
+          displayText={`You are not Logged In. Redirecting to LogIn in ${countRedirect} seconds...`}
+          buttonText="Proceed"
+          buttonAction={() => router.push("/auth/signin")}
         />
       )}
     </div>

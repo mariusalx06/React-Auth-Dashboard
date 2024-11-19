@@ -73,6 +73,7 @@ export default function SessionTimeout() {
 
   useEffect(() => {
     if (status === "loading" || status === "authenticated") return;
+
     if (status === "unauthenticated") {
       const redirectIntervalRef = setInterval(() => {
         setCountdown((prevCount) => prevCount - 1);
@@ -87,19 +88,6 @@ export default function SessionTimeout() {
     }
   }, [status, router]);
 
-  const refreshSessionExpiration = async () => {
-    const updatedSession = await getSession();
-    const expirationTime = updatedSession?.expires;
-    if (expirationTime) {
-      const expirationTimeInMs = new Date(expirationTime).getTime();
-      const remainingTimeInMs = expirationTimeInMs - Date.now();
-      clearTimeout(logoutTimerRef.current);
-      logoutTimerRef.current = setTimeout(() => {
-        signOut({ callbackUrl: "/" });
-      }, remainingTimeInMs);
-    }
-  };
-
   const stayLoggedIn = async () => {
     setShowPrompt(false);
     clearTimeout(logoutTimerRef.current);
@@ -112,7 +100,6 @@ export default function SessionTimeout() {
       if (resultGithub?.error) {
         console.error("GitHub sign-in error:", resultGithub.error);
       } else {
-        refreshSessionExpiration();
       }
     }
   };
@@ -132,7 +119,6 @@ export default function SessionTimeout() {
     } else {
       setPasswordPromptVisible(false);
       setErrorMessage("");
-      await refreshSessionExpiration();
       window.location.reload();
     }
   };
