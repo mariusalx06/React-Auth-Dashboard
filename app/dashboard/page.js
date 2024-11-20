@@ -1,14 +1,12 @@
 "use client";
 import { useState } from "react";
 import { useSession, signOut } from "next-auth/react";
-import SessionTimeout from "@/app/components/SessionTimeout";
+import SessionTimeout from "@/app/components/functional/SessionTimeout";
 import { useRouter } from "next/navigation";
-import Header from "../components/Header";
 import styles from "./page.module.css";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import AnalyticsOutlinedIcon from "@mui/icons-material/AnalyticsOutlined";
-import { VerticalAlignCenter } from "@mui/icons-material";
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
@@ -62,32 +60,34 @@ export default function Dashboard() {
             sidebarOpen ? styles.sidebarOpen : ""
           }`}
         >
-          <h1 className={styles.welcome}>
-            Welcome, {session?.user?.name} {session?.user?.agentid}!
-          </h1>
-          <p className={styles.message}>
-            You are now logged in and viewing your dashboard.
-          </p>
-          {status === "authenticated" && (
-            <div className={styles.buttons}>
-              <button
-                className={styles.logoutButton}
-                onClick={() => {
-                  signOut({ callbackUrl: "/" });
-                }}
-              >
-                Log Out
-              </button>
-              <button
-                className={styles.homeButton}
-                onClick={() => {
-                  router.push("/");
-                }}
-              >
-                Home
-              </button>
-            </div>
-          )}
+          <div className={styles.main}>
+            <h1 className={styles.welcome}>
+              Welcome, {session?.user?.name} {session?.user?.agentid}!
+            </h1>
+            <p className={styles.message}>
+              You are now logged in and viewing your dashboard.
+            </p>
+            {status === "authenticated" && (
+              <div className={styles.buttons}>
+                <button
+                  className={styles.logoutButton}
+                  onClick={() => {
+                    signOut({ callbackUrl: "/" });
+                  }}
+                >
+                  Log Out
+                </button>
+                <button
+                  className={styles.homeButton}
+                  onClick={() => {
+                    router.push("/");
+                  }}
+                >
+                  Home
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </>

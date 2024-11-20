@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useSession, signIn } from "next-auth/react";
 import styles from "@/app/auth/register/page.module.css";
 import axios from "axios";
-import Alert from "@/app/components/Alert";
+import Alert from "@/app/components/functional/Alert";
 
 export default function Register() {
   const { data: session, status } = useSession();

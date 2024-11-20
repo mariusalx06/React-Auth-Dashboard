@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import styles from "@/app/components/Loading.module.css";
+import styles from "./Loading.module.css";
 
 export default function Loading() {
   return (

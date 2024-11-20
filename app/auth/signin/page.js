@@ -3,9 +3,9 @@
 import { signIn, useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Loading from "@/app/components/Loading";
+import Loading from "@/app/components/functional/Loading";
 import styles from "@/app/auth/signin/page.module.css";
-import Alert from "@/app/components/Alert";
+import Alert from "@/app/components/functional/Alert";
 
 export default function SignIn() {
   const { status, data: session } = useSession();

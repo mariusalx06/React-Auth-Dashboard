@@ -1,12 +1,12 @@
 "use client";
 
 import { SessionProvider } from "next-auth/react";
-import SessionStatus from "@/app/components/SessionStatus";
+import SessionStatus from "@/app/components/functional/SessionStatus";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import "./globals.css";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "./components/style/Header";
+import Footer from "./components/style/Footer";
 
 export default function Layout({ children }) {
   const pathname = usePathname();

@@ -1,5 +1,5 @@
 "use client";
-import styles from "@/app/components/SessionPopup.module.css";
+import styles from "./Alert.module.css";
 
 export default function Alert(props) {
   const handleKeyDown = (event) => {

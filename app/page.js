@@ -3,11 +3,13 @@
 import { useRouter } from "next/navigation";
 
 import styles from "./page.module.css"; // Import the CSS module
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "./components/style/Header";
+import Footer from "./components/style/Footer";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
   const router = useRouter();
+  const { data: session, status } = useSession();
 
   const handleDashboardClick = () => {
     router.push("/dashboard");
@@ -17,7 +19,12 @@ export default function Home() {
     <>
       <Header />
       <div className={styles.landingContainer}>
-        <h1 className={styles.heading}>Welcome to Marius's Dashboard App</h1>
+        {status === "unauthenticated" ? (
+          <h1 className={styles.heading}>Welcome to the Dashboard App</h1>
+        ) : (
+          <h1 className={styles.heading}>Welcome back {session?.user?.name}</h1>
+        )}
+
         <div className={styles.buttonsContainer}>
           <button className={styles.button} onClick={handleDashboardClick}>
             Go to Dashboard
