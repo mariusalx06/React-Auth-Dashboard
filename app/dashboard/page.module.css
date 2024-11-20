@@ -112,7 +112,13 @@
   margin-top: 20px;
 }
 
+.text {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+}
+
 .closedButton {
+  background: transparent;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -124,6 +130,7 @@
 }
 
 .opennedButton {
+  background: transparent;
   display: flex;
   align-items: center;
   background-color: transparent;

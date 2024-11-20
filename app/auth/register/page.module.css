@@ -4,20 +4,26 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #f7fafc;
+  background-image: url("../../public/mountains.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
   padding: 2rem;
 }
 
 .formContainer {
-  background-color: white;
+  background-color: transparent;
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 25px rgba(255, 255, 255, 0.7);
   width: 100%;
   max-width: 400px;
+  border: 2px solid white;
+  backdrop-filter: blur(3px);
 }
 
 .title {
+  color: #1a202c;
   font-size: 2rem;
   font-weight: 600;
   text-align: center;
@@ -29,13 +35,15 @@
   font-size: 1rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
-  color: #4a5568;
+  color: white;
 }
 
 .input {
+  color: white;
+  background: transparent;
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid white;
   border-radius: 8px;
   font-size: 1rem;
   margin-bottom: 1rem;
@@ -43,17 +51,23 @@
 }
 
 .input:focus {
-  border-color: #6366f1;
+  border-color: white;
   outline: none;
-  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.7);
+}
+.input::placeholder {
+  color: white;
+}
+.option {
+  color: #1a202c;
 }
 
 .button {
-  background-color: #3498db;
+  background-color: transparent;
   color: white;
   padding: 10px 20px;
   border-radius: 5px;
-  border: none;
+  border: 1px solid white;
   cursor: pointer;
   font-size: 1rem;
   margin-top: 10px;
@@ -61,27 +75,20 @@
   width: 100%;
 }
 
-.button:disabled {
-  background-color: #e2e8f0;
-  cursor: not-allowed;
+.button:hover {
+  background-color: white;
+  color: #1a202c;
 }
 
 .primaryButton {
-  background-color: #6366f1;
-  color: white;
+  background: white;
+  color: #1a202c;
 }
 
 .primaryButton:hover {
-  background-color: #4f46e5;
-}
-
-.secondaryButton {
-  background-color: #1a202c;
+  background: #1a202c;
+  border: 1px solid #1a202c;
   color: white;
-}
-
-.secondaryButton:hover {
-  background-color: #2d3748;
 }
 
 .errorMessage {
@@ -91,11 +98,132 @@
   text-align: center;
 }
 
-.loginButton {
-  background-color: #2ecc71;
-  color: white;
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+    margin-top: 50px;
+    background-size: cover;
+  }
+
+  .formContainer {
+    padding: 1.5rem;
+    max-width: 100%;
+    width: 90%;
+    border-radius: 8px;
+    margin-top: 1rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .label {
+    font-size: 0.875rem;
+  }
+
+  .input {
+    padding: 0.75rem;
+    font-size: 1rem;
+  }
+
+  .button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    margin-top: 15px;
+  }
+
+  .primaryButton {
+    padding: 10px 20px;
+  }
+
+  .errorMessage {
+    font-size: 0.875rem;
+    text-align: center;
+  }
 }
 
-.loginButton:hover {
-  background-color: #27ae60;
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+    margin-top: 50px;
+    background-size: cover;
+  }
+
+  .formContainer {
+    padding: 1.5rem;
+    max-width: 320px;
+    width: 90%;
+    border-radius: 8px;
+    margin-top: 1rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .label {
+    font-size: 0.875rem;
+  }
+
+  .input {
+    padding: 0.75rem;
+    font-size: 1rem;
+  }
+
+  .button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    margin-top: 15px;
+  }
+
+  .primaryButton {
+    padding: 10px 20px;
+  }
+
+  .errorMessage {
+    font-size: 0.875rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0.5rem;
+    margin-top: 50px;
+  }
+
+  .formContainer {
+    padding: 1rem;
+    width: 90%;
+    max-width: 300px;
+  }
+
+  .title {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .label {
+    font-size: 0.75rem;
+  }
+
+  .input {
+    font-size: 0.875rem;
+  }
+
+  .button {
+    font-size: 0.875rem;
+    padding: 8px 16px;
+  }
+
+  .primaryButton {
+    padding: 8px 16px;
+  }
+
+  .errorMessage {
+    font-size: 0.75rem;
+    margin-bottom: 1rem;
+  }
 }

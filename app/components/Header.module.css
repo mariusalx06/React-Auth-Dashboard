@@ -41,19 +41,21 @@
   font-weight: 500;
   overflow: hidden;
   display: inline-block;
+  border: 1px solid white;
 }
 
 .link:hover {
-  color: #63b3ed;
+  color: #1a202c;
   transform: scale(1.2);
-  box-shadow: 0 0 8px rgba(99, 179, 237, 0.7);
+  background: white;
 }
 
 .active {
-  font-weight: 700;
+  font-weight: 500;
   transform: scale(1.1);
   position: relative;
-  box-shadow: 0 0 8px rgba(99, 179, 237, 0.7);
+  background: white;
+  color: #1a202c;
 }
 
 .active::before {
@@ -65,7 +67,5 @@
   height: 100%;
   border-radius: 5px;
   background: transparent;
-  box-shadow: 0 0 15px rgba(99, 179, 237, 0.9), 0 0 20px rgba(99, 179, 237, 0.7);
-  transition: box-shadow 0.3s ease;
   z-index: -1;
 }

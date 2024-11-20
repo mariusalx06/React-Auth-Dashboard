@@ -163,8 +163,12 @@ export default function Register() {
               }}
               required
             >
-              <option value="manager">Manager</option>
-              <option value="agent">Agent</option>
+              <option className={styles.option} value="manager">
+                Manager
+              </option>
+              <option className={styles.option} value="agent">
+                Agent
+              </option>
             </select>
           </div>
           <div>
