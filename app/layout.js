@@ -31,14 +31,13 @@ export default function Layout({ children }) {
           <title>Marius's Auth Dashboard App</title>
           <meta name="description" content="Marius's first Auth Application" />
         </head>
+        <Header />
         <body>
-          <Header />
           {isSessionStatusActive ? (
             <SessionStatus>{children}</SessionStatus>
           ) : (
             children
           )}
-          <Footer />
         </body>
       </html>
     </SessionProvider>

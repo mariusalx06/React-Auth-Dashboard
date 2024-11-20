@@ -1,83 +1,173 @@
 .container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f4f4f9;
-  padding: 20px;
+  min-height: 100vh;
+  margin-top: 50px;
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  width: 60px;
+  background-color: #f4f4f4;
+  color: #333;
+  height: calc(100vh - 50px);
+  transition: margin-right 0.5s ease, width 0.5s ease;
+  overflow: hidden;
+  z-index: 0;
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.sidebarOpen {
+  width: 240px;
+}
+
+.toggleButton {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: none;
+  border: none;
+  color: #1a202c;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.sidebarOpen .toggleButton {
+  left: 20px;
+  transform: translateX(0);
+}
+
+.sidebarContent {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 8px;
+}
+
+.sidebarContent div {
+  font-size: 14px;
+}
+
+.sidebarContent div:last-child {
+  padding-bottom: 20px;
 }
 
 .content {
+  margin-left: 60px;
+  padding: 20px;
+  transition: margin-left 0.5s ease, width 0.5s ease;
+  flex-grow: 1;
   background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 30px;
-  width: 100%;
-  max-width: 600px;
-  text-align: center;
+  z-index: 1;
+  width: calc(100% - 60px);
+  box-shadow: -4px 0 8px rgba(0, 0, 0, 0.1);
+  border-left: 2px solid #e0e0e0;
 }
-
 .welcome {
-  font-size: 2rem;
-  color: #333;
-  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .message {
-  font-size: 1.2rem;
-  color: #666;
-  margin-bottom: 40px;
+  font-size: 16px;
+  margin-top: 10px;
 }
 
 .buttons {
-  display: flex;
-  justify-content: space-evenly;
-  gap: 20px;
+  margin-top: 20px;
 }
 
-.buttons button {
-  padding: 12px 20px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s;
-}
-
-.logoutButton {
-  background-color: #d84b4b;
-  color: white;
-}
-
-.logoutButton:hover {
-  background-color: #9e2a2a;
-  transform: scale(1.05);
-}
-
+.logoutButton,
 .homeButton {
-  background-color: #6366f1;
+  background-color: #007bff;
   color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+  border-radius: 4px;
 }
 
+.logoutButton:hover,
 .homeButton:hover {
-  background-color: #4b56e5;
-  transform: scale(1.05);
+  background-color: #0056b3;
 }
 
-@media (max-width: 768px) {
-  .content {
-    padding: 20px;
-  }
+.sidebarOpen + .content {
+  margin-left: 240px;
+  width: calc(100% - 200px);
+  box-shadow: -4px 0 8px rgba(0, 0, 0, 0.1);
+  border-left: 2px solid #e0e0e0;
+}
 
-  .welcome {
-    font-size: 1.8rem;
-  }
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
 
-  .message {
-    font-size: 1rem;
-  }
+.closedButton {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 50px;
+}
+.closedButton:hover {
+  background-color: #c8e6fd;
+}
 
-  .buttons button {
-    font-size: 0.9rem;
-  }
+.opennedButton {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px 10px;
+  margin-left: 10px;
+  border-radius: 50px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.opennedButton:hover {
+  background-color: #c8e6fd;
+}
+
+.icon {
+  font-size: 24px;
+}
+
+.sidebarOpen .sidebarContent {
+  padding-left: 0;
+}
+
+.sidebarOpen .item {
+  margin-left: -8px;
+}
+
+.sidebarOpen .text {
+  gap: 10px;
+}
+
+.closedSidebarContent {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100%;
+  margin-top: 40px;
+}
+
+.closedSidebarContent button {
+  border: 0px;
+}
+
+.opennedButton p {
+  margin-left: 5px;
 }

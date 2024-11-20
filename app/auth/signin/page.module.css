@@ -4,20 +4,26 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #f7fafc;
+  background-image: url("../../public/mountains.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
   padding: 2rem;
 }
 
 .formContainer {
-  background-color: white;
+  background-color: transparent;
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
+  border: 2px solid white;
+  backdrop-filter: blur(3px);
 }
 
 .title {
+  color: white;
   font-size: 2rem;
   font-weight: 600;
   text-align: center;
@@ -29,10 +35,12 @@
   font-size: 1rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
-  color: #4a5568;
+  color: white;
 }
 
 .input {
+  color: white;
+  background: transparent;
   width: 100%;
   padding: 0.75rem;
   border: 1px solid #e2e8f0;
@@ -43,17 +51,17 @@
 }
 
 .input:focus {
-  border-color: #6366f1;
+  border-color: #63b3ed;
   outline: none;
-  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 0 0 2px rgba(99, 179, 237, 0.3);
 }
 
 .button {
-  background-color: #3498db;
+  background-color: transparent;
   color: white;
   padding: 10px 20px;
   border-radius: 5px;
-  border: none;
+  border: 1px solid white;
   cursor: pointer;
   font-size: 1rem;
   margin-top: 10px;
@@ -62,30 +70,8 @@
 }
 
 .button:hover {
-  background-color: #2980b9;
-}
-
-.button:disabled {
-  background-color: #e2e8f0;
-  cursor: not-allowed;
-}
-
-.primaryButton {
-  background-color: #6366f1;
-  color: white;
-}
-
-.primaryButton:hover {
-  background-color: #4f46e5;
-}
-
-.secondaryButton {
-  background-color: #1a202c;
-  color: white;
-}
-
-.secondaryButton:hover {
-  background-color: #2d3748;
+  background-color: white;
+  color: #1a202c;
 }
 
 .errorMessage {
@@ -93,20 +79,4 @@
   font-size: 0.875rem;
   margin-bottom: 1rem;
   text-align: center;
-}
-
-.homeButton {
-  background-color: #3498db;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  margin-top: 10px;
-  transition: background-color 0.3s ease;
-}
-
-.homeButton:hover {
-  background-color: #2980b9;
 }

@@ -2,38 +2,29 @@
 
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import styles from "./Header.module.css";
 
 export default function Header() {
   const { status, data: session } = useSession();
   const pathname = usePathname();
+  let title;
 
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [showHeader, setShowHeader] = useState(true);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY > lastScrollY) {
-        setShowHeader(false);
-      } else {
-        setShowHeader(true);
-      }
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [lastScrollY]);
+  switch (pathname) {
+    case "/dashboard":
+      title = `${session?.user?.name}`;
+      break;
+    case "/profile":
+      title = "Profile Page";
+      break;
+    default:
+      title = "Dashboard App"; // Default title
+  }
 
   return (
-    <header className={`${styles.header} ${!showHeader ? styles.hidden : ""}`}>
+    <header className={`${styles.header}`}>
       <div className={styles.container}>
-        <h1 className={styles.logo}>Marius's Dashboard App</h1>
+        <h1 className={styles.logo}>{title}</h1>
         <nav className={styles.nav}>
           {status === "authenticated" ? (
             <Link

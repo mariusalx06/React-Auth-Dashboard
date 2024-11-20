@@ -25,20 +25,20 @@
 }
 
 .button {
-  background-color: #6366f1;
+  background-color: #63b3ed;
   color: white;
   padding: 12px 25px;
   font-size: 1rem;
   border-radius: 5px;
-  border: 1px solid #4f46e5;
+  border: 1px solid #4091c2;
   cursor: pointer;
   transition: background-color 0.3s ease, border-color 0.3s ease;
   margin-top: 1rem;
 }
 
 .button:hover {
-  background-color: #4f46e5;
-  border-color: #3e3bcb;
+  background-color: #2c7bbe;
+  border-color: #2c7bbe;
 }
 
 .button:focus {

@@ -206,7 +206,7 @@ export default function Register() {
       )}
       {showRedirect && (
         <Alert
-          displayText={`You are not Logged In. Redirecting to LogIn in ${countRedirect} seconds...`}
+          displayText={`Please contact the ADMIN to get registered. Redirecting to LogIn in ${countRedirect} seconds...`}
           buttonText="Proceed"
           buttonAction={() => router.push("/auth/signin")}
         />
