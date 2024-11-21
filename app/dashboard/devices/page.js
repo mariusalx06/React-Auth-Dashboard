@@ -8,7 +8,7 @@ export default function Customers() {
 
   return (
     <DashboardLayout>
-      <h1>Customers</h1>
+      <h1>Devices</h1>
     </DashboardLayout>
   );
 }

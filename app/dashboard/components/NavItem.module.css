@@ -1,9 +1,12 @@
+/* Default item style */
 .item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
+/* Default button style for open state */
 .opennedButton {
   background: transparent;
   display: flex;
@@ -12,26 +15,22 @@
   border: none;
   cursor: pointer;
   padding: 6px 10px;
-
   border-radius: 50px;
   font-size: 16px;
   transition: background-color 0.3s ease;
 }
 
+/* Hover effect for the open button */
 .opennedButton:hover {
   background-color: #d1d9e6;
 }
 
-.icon {
-  font-size: 24px;
-  margin-right: 5px;
+/* Active state for the open button */
+.opennedButton.active {
+  background-color: #8a9bb3;
 }
 
-.text {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 600;
-}
-
+/* Default button style for collapsed state */
 .closedButton {
   background: transparent;
   display: flex;
@@ -41,10 +40,16 @@
   border-radius: 50px;
 }
 
+/* Hover effect for the collapsed button */
 .closedButton:hover {
   background-color: #d1d9e6;
 }
 
+.closedButton.active {
+  background-color: #8a9bb3;
+}
+
+/* Responsive changes for smaller screens */
 @media (max-width: 768px) {
   .item {
     font-size: 12px;
@@ -57,11 +62,11 @@
 
   .opennedButton {
     padding: 6px;
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .closedButton {
-    padding: 6px;
+    padding: 4px;
     font-size: 14px;
   }
 }

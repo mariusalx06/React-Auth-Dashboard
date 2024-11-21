@@ -8,9 +8,10 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import AnalyticsOutlinedIcon from "@mui/icons-material/AnalyticsOutlined";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
-import GroupsIcon from "@mui/icons-material/Groups";
+import ImportantDevicesIcon from "@mui/icons-material/ImportantDevices";
 import NavItem from "./components/NavItem";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import EuroIcon from "@mui/icons-material/Euro";
 
 export default function DashboardLayout({ children }) {
   const { data: session, status } = useSession();
@@ -19,6 +20,7 @@ export default function DashboardLayout({ children }) {
 
   const toggleSidebar = () => {
     setSidebarOpen((prevState) => !prevState);
+    console.log(session);
   };
 
   async function handleClick() {
@@ -45,16 +47,26 @@ export default function DashboardLayout({ children }) {
                 Icon={AnalyticsOutlinedIcon}
                 text="Analytics"
                 href="/dashboard/analytics"
+                isSidebarOpen={sidebarOpen}
               />
               <NavItem
                 Icon={TrendingUpIcon}
                 text="Sales"
                 href="/dashboard/sales"
+                isSidebarOpen={sidebarOpen}
               />
               <NavItem
-                Icon={GroupsIcon}
-                text="Customers"
-                href="/dashboard/customers"
+                Icon={ImportantDevicesIcon}
+                text="Devices"
+                href="/dashboard/devices"
+                isSidebarOpen={sidebarOpen}
+              />
+              <NavItem
+                Icon={EuroIcon}
+                text="CRM"
+                href="/crm"
+                inactive={true}
+                isSidebarOpen={sidebarOpen}
               />
             </div>
           ) : (
@@ -62,16 +74,25 @@ export default function DashboardLayout({ children }) {
               <NavItem
                 Icon={AnalyticsOutlinedIcon}
                 href="/dashboard/analytics"
+                isSidebarOpen={sidebarOpen}
               />
               <NavItem
                 Icon={TrendingUpIcon}
                 onClick={handleClick}
                 href="/dashboard/sales"
+                isSidebarOpen={sidebarOpen}
               />
               <NavItem
-                Icon={GroupsIcon}
+                Icon={ImportantDevicesIcon}
                 onClick={handleClick}
-                href="/dashboard/customers"
+                href="/dashboard/devices"
+                isSidebarOpen={sidebarOpen}
+              />
+              <NavItem
+                Icon={EuroIcon}
+                href="/crm"
+                inactive={true}
+                isSidebarOpen={sidebarOpen}
               />
             </div>
           )}

@@ -16,11 +16,12 @@
   transition: margin-right 0.5s ease, width 0.5s ease;
   overflow: hidden;
   z-index: 0;
-  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.1); /* Shadow for collapsed state */
 }
 
 .sidebarOpen {
   width: 240px;
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.2); /* Stronger shadow when expanded */
 }
 
 .toggleButton {
@@ -46,14 +47,6 @@
   flex-direction: column;
   align-items: flex-start;
   margin-left: 8px;
-}
-
-.sidebarContent div {
-  font-size: 14px;
-}
-
-.sidebarContent div:last-child {
-  padding-bottom: 20px;
 }
 
 .content {
@@ -88,7 +81,7 @@
 }
 
 .logoutButton {
-  background-color: #ff2415;
+  background-color: #ff2f20;
   color: #1a202c;
   display: flex;
   align-items: center;
@@ -105,7 +98,7 @@
 }
 
 .logoutButton:hover {
-  background-color: #c42d2d;
+  background-color: #d32f2f;
 }
 
 .logoutButton svg {
@@ -127,9 +120,9 @@
 }
 
 .sidebarOpen .logoutButton {
-  transition: width 0.3s ease, padding 0.3s ease; /* Smooth transition when expanding the button */
-  padding: 8px 16px; /* Normal padding with text visible */
-  justify-content: flex-start; /* Align the content with the label */
+  transition: width 0.3s ease, padding 0.3s ease;
+  padding: 8px 16px;
+  justify-content: flex-start;
   width: auto;
   height: auto;
 }
@@ -177,11 +170,11 @@
 
   .sidebar {
     width: 40px;
-    height: calc(100vh - 50px);
+    height: calc(100vh - 40px);
     position: fixed;
-    top: 50px;
+    top: 40px;
     left: 0;
-    z-index: 100;
+    z-index: 0;
     transition: width 0.3s ease;
   }
 
@@ -202,7 +195,7 @@
   }
 
   .toggleButton {
-    top: 5px;
+    top: 10px;
     z-index: 101;
     position: absolute;
   }

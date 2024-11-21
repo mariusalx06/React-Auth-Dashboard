@@ -1,0 +1,49 @@
+.saleItem {
+  background-color: #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 15px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin: 10px auto;
+}
+
+.saleItem:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.saleTitle {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #1a202c;
+  margin-bottom: 10px;
+}
+
+.saleDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.saleDetails p {
+  font-size: 1rem;
+  color: #1a202c;
+  margin: 0;
+}
+
+.saleDetails strong {
+  color: #1a202c;
+  font-weight: 700;
+}
+
+.saleItemInfo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
