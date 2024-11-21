@@ -41,7 +41,7 @@
 }
 
 .sidebarContent {
-  margin-top: 50px;
+  margin-top: 60px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -67,6 +67,7 @@
   box-shadow: -4px 0 8px rgba(0, 0, 0, 0.1);
   border-left: 2px solid #e0e0e0;
 }
+
 .welcome {
   font-size: 24px;
   font-weight: bold;
@@ -78,23 +79,59 @@
 }
 
 .buttons {
-  margin-top: 20px;
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  margin-left: 8px;
+  margin-right: 8px;
 }
 
-.logoutButton,
-.homeButton {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
+.logoutButton {
+  background-color: #ff2415;
+  color: #1a202c;
+  display: flex;
+  align-items: center;
+  padding: 8px;
   border: none;
   cursor: pointer;
-  margin-right: 10px;
   border-radius: 4px;
+  font-size: 14px;
+  width: auto;
+  justify-content: flex-start;
+  transition: background-color 0.3s ease, width 0.3s ease, padding 0.3s ease,
+    font-size 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.logoutButton:hover,
-.homeButton:hover {
-  background-color: #0056b3;
+.logoutButton:hover {
+  background-color: #c42d2d;
+}
+
+.logoutButton svg {
+  margin-right: 10px;
+  transition: margin-right 0.3s ease;
+}
+
+.sidebar:not(.sidebarOpen) .logoutButton {
+  transition: width 0.3s ease, height 0.3s ease, padding 0.3s ease;
+  padding: 10px;
+  justify-content: center;
+  margin: 0;
+  width: 40px;
+  height: 40px;
+}
+
+.sidebar:not(.sidebarOpen) .logoutButton svg {
+  margin-right: 0px;
+}
+
+.sidebarOpen .logoutButton {
+  transition: width 0.3s ease, padding 0.3s ease; /* Smooth transition when expanding the button */
+  padding: 8px 16px; /* Normal padding with text visible */
+  justify-content: flex-start; /* Align the content with the label */
+  width: auto;
+  height: auto;
 }
 
 .sidebarOpen + .content {
@@ -102,51 +139,6 @@
   width: calc(100% - 200px);
   box-shadow: -4px 0 8px rgba(0, 0, 0, 0.1);
   border-left: 2px solid #e0e0e0;
-}
-
-.item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.text {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 600;
-}
-
-.closedButton {
-  background: transparent;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  padding: 6px 10px;
-  border-radius: 50px;
-}
-.closedButton:hover {
-  background-color: #c8e6fd;
-}
-
-.opennedButton {
-  background: transparent;
-  display: flex;
-  align-items: center;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 6px 10px;
-  margin-left: 10px;
-  border-radius: 50px;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-}
-
-.opennedButton:hover {
-  background-color: #c8e6fd;
-}
-
-.icon {
-  font-size: 24px;
 }
 
 .sidebarOpen .sidebarContent {
@@ -163,10 +155,10 @@
 
 .closedSidebarContent {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
   height: 100%;
-  margin-top: 40px;
+  margin-top: 60px;
 }
 
 .closedSidebarContent button {
@@ -229,10 +221,6 @@
     margin-top: 8px;
   }
 
-  .buttons {
-    margin-top: 12px;
-  }
-
   .logoutButton,
   .homeButton {
     padding: 6px 12px;
@@ -244,21 +232,12 @@
     width: calc(100% - 140px);
   }
 
-  .item {
-    font-size: 12px;
-    gap: 6px;
-  }
-
-  .text {
-    font-size: 14px;
-  }
-
   .sidebarOpen .sidebarContent {
     padding-left: 5px;
   }
 
   .sidebarContent {
-    margin-top: 40px;
+    margin-top: 60px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -266,16 +245,24 @@
   }
 
   .closedSidebarContent {
-    margin-top: 40px;
+    margin-top: 60px;
+  }
+  .buttons {
+    margin-left: 6px;
+    margin-right: 6px;
   }
 
-  .closedButton {
-    padding: 6px;
-    font-size: 14px;
-  }
-
-  .opennedButton {
-    padding: 6px;
+  .logoutButton {
     font-size: 12px;
+    padding: 14px;
+  }
+  .sidebar:not(.sidebarOpen) .logoutButton {
+    font-size: 12px;
+    padding: 14px;
+    width: 24px;
+    height: 24px;
+  }
+  .logOutIcon {
+    font-size: 18px;
   }
 }

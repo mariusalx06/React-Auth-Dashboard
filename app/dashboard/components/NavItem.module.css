@@ -1,0 +1,67 @@
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.opennedButton {
+  background: transparent;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px 10px;
+
+  border-radius: 50px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.opennedButton:hover {
+  background-color: #d1d9e6;
+}
+
+.icon {
+  font-size: 24px;
+  margin-right: 5px;
+}
+
+.text {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+}
+
+.closedButton {
+  background: transparent;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 50px;
+}
+
+.closedButton:hover {
+  background-color: #d1d9e6;
+}
+
+@media (max-width: 768px) {
+  .item {
+    font-size: 12px;
+    gap: 6px;
+  }
+
+  .text {
+    font-size: 14px;
+  }
+
+  .opennedButton {
+    padding: 6px;
+    font-size: 12px;
+  }
+
+  .closedButton {
+    padding: 6px;
+    font-size: 14px;
+  }
+}

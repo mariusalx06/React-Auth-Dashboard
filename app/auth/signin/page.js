@@ -33,7 +33,7 @@ export default function SignIn() {
           if (prevCountdown === 1) {
             clearInterval(interval);
             setTimeout(() => {
-              router.push("/dashboard");
+              router.push("/dashboard/home");
             }, 300);
           }
           return prevCountdown - 1;
@@ -59,7 +59,7 @@ export default function SignIn() {
       setError(res.error);
       setIsLoading(false);
     } else {
-      router.push("/dashboard");
+      router.push("/dashboard/home");
     }
   };
 
@@ -126,7 +126,7 @@ export default function SignIn() {
         <Alert
           displayText={`You are logged in. Redirecting to Dashboard in ${countdown} seconds...`}
           buttonText="Proceed"
-          buttonAction={() => router.push("/dashboard")}
+          buttonAction={() => router.push("/dashboard/home")}
         />
       )}
     </div>

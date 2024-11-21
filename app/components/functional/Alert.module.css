@@ -31,12 +31,12 @@
 
 .messageContainer p {
   font-size: 16px;
-  color: #333;
+  color: #1a202c;
   margin-bottom: 15px;
 }
 
 .messageContainer button {
-  background-color: #333333;
+  background-color: #1a202c;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -49,7 +49,8 @@
 }
 
 .messageContainer button:hover {
-  background-color: #6366f1;
+  background-color: #b0b9c7;
+  color: #1a202c;
 }
 
 @keyframes fadeIn {

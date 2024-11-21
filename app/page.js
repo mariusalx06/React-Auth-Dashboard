@@ -12,7 +12,7 @@ export default function Home() {
   const { data: session, status } = useSession();
 
   const handleDashboardClick = () => {
-    router.push("/dashboard");
+    router.push("/dashboard/home");
   };
 
   return (

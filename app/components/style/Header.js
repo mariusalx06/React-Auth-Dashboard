@@ -10,15 +10,14 @@ export default function Header() {
   const pathname = usePathname();
   let title;
 
-  switch (pathname) {
-    case "/dashboard":
-      title = `${session?.user?.name}`;
-      break;
-    case "/profile":
-      title = "Profile Page";
-      break;
-    default:
-      title = "Dashboard App"; // Default title
+  if (pathname === "/") {
+    title = "Dashboard App";
+  } else if (pathname.includes("/dashboard")) {
+    title = `${session?.user?.name}`;
+  } else if (pathname === "/profile") {
+    title = "Profile Page";
+  } else {
+    title = "Dashboard App";
   }
 
   return (
@@ -28,9 +27,9 @@ export default function Header() {
         <nav className={styles.nav}>
           {status === "authenticated" ? (
             <Link
-              href="/dashboard"
+              href="/dashboard/home"
               className={`${styles.link} ${
-                pathname === "/dashboard" ? styles.active : ""
+                pathname.includes("/dashboard") ? styles.active : ""
               }`}
             >
               Dashboard
