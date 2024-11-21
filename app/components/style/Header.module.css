@@ -5,7 +5,7 @@
   width: 100%;
   background-color: #1a202c;
   color: white;
-  padding: 0.7rem 2rem;
+  padding: 11.2px 32px;
   z-index: 1000;
   transition: transform 0.3s ease;
 }
@@ -17,7 +17,7 @@
 }
 
 .logo {
-  font-size: 1rem;
+  font-size: 16px;
   font-weight: 700;
   color: white;
   letter-spacing: 1px;
@@ -27,16 +27,16 @@
 
 .nav {
   display: flex;
-  gap: 1.5rem;
+  gap: 24px;
 }
 
 .link {
   color: white;
-  font-size: 0.8rem;
+  font-size: 12.8px;
   text-decoration: none;
   position: relative;
   transition: color 0.3s ease, transform 0.3s ease;
-  padding: 0.5rem;
+  padding: 8px;
   border-radius: 5px;
   font-weight: 500;
   overflow: hidden;
@@ -68,4 +68,32 @@
   border-radius: 5px;
   background: transparent;
   z-index: -1;
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 8px 24px;
+  }
+
+  .logo {
+    font-size: 14.4px;
+  }
+
+  .nav {
+    gap: 16px;
+  }
+
+  .link {
+    font-size: 11.2px;
+    padding: 6.4px;
+  }
+
+  .link:hover {
+    transform: scale(1.1);
+  }
+
+  .active {
+    font-weight: 400;
+    transform: scale(1.05);
+  }
 }

@@ -25,13 +25,12 @@
 
 .toggleButton {
   position: absolute;
-  top: 10px;
+  top: 15px;
   left: 50%;
   transform: translateX(-50%);
   background: none;
   border: none;
   color: #1a202c;
-  font-size: 24px;
   cursor: pointer;
   z-index: 2;
 }
@@ -42,7 +41,7 @@
 }
 
 .sidebarContent {
-  margin-top: 40px;
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -109,7 +108,6 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 20px;
 }
 
 .text {
@@ -177,4 +175,107 @@
 
 .opennedButton p {
   margin-left: 5px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    margin-top: 40px;
+  }
+
+  .sidebar {
+    width: 40px;
+    height: calc(100vh - 50px);
+    position: fixed;
+    top: 50px;
+    left: 0;
+    z-index: 100;
+    transition: width 0.3s ease;
+  }
+
+  .sidebarOpen {
+    width: 140px;
+  }
+
+  .content {
+    margin-left: 40px;
+    padding: 15px;
+    transition: margin-left 0.3s ease, width 0.3s ease;
+    flex-grow: 1;
+    background-color: white;
+    z-index: 1;
+    width: calc(100% - 40px);
+    box-shadow: -4px 0 8px rgba(0, 0, 0, 0.1);
+    border-left: 2px solid #e0e0e0;
+  }
+
+  .toggleButton {
+    top: 5px;
+    z-index: 101;
+    position: absolute;
+  }
+
+  .sidebarOpen .toggleButton {
+    left: 20px;
+    transform: translateX(0);
+  }
+
+  .welcome {
+    font-size: 18px;
+  }
+
+  .message {
+    font-size: 12px;
+    margin-top: 8px;
+  }
+
+  .buttons {
+    margin-top: 12px;
+  }
+
+  .logoutButton,
+  .homeButton {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .sidebarOpen + .content {
+    margin-left: 140px;
+    width: calc(100% - 140px);
+  }
+
+  .item {
+    font-size: 12px;
+    gap: 6px;
+  }
+
+  .text {
+    font-size: 14px;
+  }
+
+  .sidebarOpen .sidebarContent {
+    padding-left: 5px;
+  }
+
+  .sidebarContent {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 8px;
+  }
+
+  .closedSidebarContent {
+    margin-top: 40px;
+  }
+
+  .closedButton {
+    padding: 6px;
+    font-size: 14px;
+  }
+
+  .opennedButton {
+    padding: 6px;
+    font-size: 12px;
+  }
 }

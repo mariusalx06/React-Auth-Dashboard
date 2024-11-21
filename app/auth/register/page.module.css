@@ -8,12 +8,12 @@
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  padding: 2rem;
+  padding: 32px;
 }
 
 .formContainer {
   background-color: transparent;
-  padding: 2rem;
+  padding: 32px;
   border-radius: 8px;
   box-shadow: 0 4px 25px rgba(255, 255, 255, 0.7);
   width: 100%;
@@ -24,17 +24,17 @@
 
 .title {
   color: #1a202c;
-  font-size: 2rem;
+  font-size: 32px;
   font-weight: 600;
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 24px;
 }
 
 .label {
   display: block;
-  font-size: 1rem;
+  font-size: 16px;
   font-weight: 500;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
   color: white;
 }
 
@@ -42,11 +42,11 @@
   color: white;
   background: transparent;
   width: 100%;
-  padding: 0.75rem;
+  padding: 12px;
   border: 1px solid white;
   border-radius: 8px;
-  font-size: 1rem;
-  margin-bottom: 1rem;
+  font-size: 16px;
+  margin-bottom: 16px;
   transition: border-color 0.2s;
 }
 
@@ -69,7 +69,7 @@
   border-radius: 5px;
   border: 1px solid white;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 16px;
   margin-top: 10px;
   transition: background-color 0.3s ease;
   width: 100%;
@@ -93,89 +93,44 @@
 
 .errorMessage {
   color: #e53e3e;
-  font-size: 0.875rem;
-  margin-bottom: 1rem;
+  font-size: 14px;
+  margin-bottom: 16px;
   text-align: center;
 }
 
 @media (max-width: 768px) {
   .container {
-    padding: 1rem;
-    margin-top: 50px;
+    padding: 16px;
+    margin-top: 40px;
     background-size: cover;
   }
 
   .formContainer {
-    padding: 1.5rem;
-    max-width: 100%;
-    width: 90%;
-    border-radius: 8px;
-    margin-top: 1rem;
-  }
-
-  .title {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .label {
-    font-size: 0.875rem;
-  }
-
-  .input {
-    padding: 0.75rem;
-    font-size: 1rem;
-  }
-
-  .button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    margin-top: 15px;
-  }
-
-  .primaryButton {
-    padding: 10px 20px;
-  }
-
-  .errorMessage {
-    font-size: 0.875rem;
-    text-align: center;
-  }
-}
-
-@media (max-width: 768px) {
-  .container {
-    padding: 1rem;
-    margin-top: 50px;
-    background-size: cover;
-  }
-
-  .formContainer {
-    padding: 1.5rem;
+    padding: 24px;
     max-width: 320px;
     width: 90%;
     border-radius: 8px;
-    margin-top: 1rem;
+    margin-top: 16px;
   }
 
   .title {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+    font-size: 24px;
+    margin-bottom: 16px;
   }
 
   .label {
-    font-size: 0.875rem;
+    font-size: 14px;
   }
 
   .input {
-    padding: 0.75rem;
-    font-size: 1rem;
+    padding: 12px;
+    font-size: 16px;
   }
 
   .button {
     padding: 10px 20px;
-    font-size: 1rem;
-    margin-top: 15px;
+    font-size: 16px;
+    margin-top: 16px;
   }
 
   .primaryButton {
@@ -183,47 +138,7 @@
   }
 
   .errorMessage {
-    font-size: 0.875rem;
+    font-size: 14px;
     text-align: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .container {
-    padding: 0.5rem;
-    margin-top: 50px;
-  }
-
-  .formContainer {
-    padding: 1rem;
-    width: 90%;
-    max-width: 300px;
-  }
-
-  .title {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-  }
-
-  .label {
-    font-size: 0.75rem;
-  }
-
-  .input {
-    font-size: 0.875rem;
-  }
-
-  .button {
-    font-size: 0.875rem;
-    padding: 8px 16px;
-  }
-
-  .primaryButton {
-    padding: 8px 16px;
-  }
-
-  .errorMessage {
-    font-size: 0.75rem;
-    margin-bottom: 1rem;
   }
 }
