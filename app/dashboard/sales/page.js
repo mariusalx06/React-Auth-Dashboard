@@ -2,9 +2,12 @@
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import DashboardLayout from "@/app/dashboard/DashboardLayout";
+import SearchIcon from "@mui/icons-material/Search";
 import SaleItem from "./components/SaleItem";
 import styles from "./page.module.css";
 import axios from "axios";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
 export default function Sales() {
   const { data: session, status } = useSession();
@@ -111,12 +114,12 @@ export default function Sales() {
       return;
     }
 
+    if (selectedAgentId === "Select") {
+      setErrorMessage("Please select an agent.");
+      return;
+    }
+
     setErrorMessage("");
-    const filters = [
-      selectedDateSort,
-      selectedCustomerSatisfaction,
-      selectedDeviceCode,
-    ];
 
     const queryParams = new URLSearchParams();
     queryParams.append("agentid", selectedAgentId);
@@ -209,6 +212,10 @@ export default function Sales() {
     (i + 1).toString().padStart(2, "0")
   );
 
+  const handleCheckboxChange = () => {
+    setIsOrderIdSearch(!isOrderIdSearch); // Toggle checkbox state
+  };
+
   return (
     <DashboardLayout>
       <h1>Sales</h1>
@@ -216,13 +223,24 @@ export default function Sales() {
 
       <div className={styles.searchContainer}>
         <label className={styles.searchLabel}>Search By Order ID</label>
-        <label className={styles.checkboxContainer}>
-          <input
-            type="checkbox"
-            checked={isOrderIdSearch}
-            onChange={(e) => setIsOrderIdSearch(e.target.checked)}
-          />
-        </label>
+        <div className={styles.checkboxContainer}>
+          <div
+            onClick={handleCheckboxChange}
+            className={styles.checkboxWrapper}
+          >
+            {isOrderIdSearch ? (
+              <CheckBoxIcon className={styles.checkboxIcon} />
+            ) : (
+              <CheckBoxOutlineBlankIcon className={styles.checkboxIcon} />
+            )}
+          </div>
+          <label
+            onClick={handleCheckboxChange}
+            className={styles.checkboxLabel}
+          >
+            Toggle Search
+          </label>
+        </div>
         <input
           type="text"
           value={orderId}
@@ -230,14 +248,12 @@ export default function Sales() {
           className={styles.orderInput}
           disabled={!isOrderIdSearch}
         />
-      </div>
-      <div>
         <button
           onClick={fetchSalesByOrderId}
           className={styles.button}
           disabled={!isOrderIdSearch}
         >
-          Fetch Sales by Order ID
+          <SearchIcon style={{ verticalAlign: "top" }} />
         </button>
       </div>
 
@@ -246,7 +262,7 @@ export default function Sales() {
       <div className={styles.options}>
         <div className={styles.filterSection}>
           <div>
-            <label>Select Agent ID:</label>
+            <label>Agent ID:</label>
             <select
               value={selectedAgentId}
               onChange={handleAgentChange}
@@ -270,7 +286,7 @@ export default function Sales() {
           </div>
 
           <div>
-            <label>Select Month:</label>
+            <label>Month:</label>
             <select
               value={selectedMonth}
               onChange={handleMonthChange}
@@ -290,7 +306,7 @@ export default function Sales() {
           </div>
 
           <div>
-            <label>Select Year:</label>
+            <label>Year:</label>
             <select
               value={selectedYear}
               onChange={handleYearChange}
@@ -313,7 +329,7 @@ export default function Sales() {
               className={styles.button}
               disabled={isOrderIdSearch}
             >
-              Fetch Sales with Filters
+              <SearchIcon style={{ verticalAlign: "top" }} />{" "}
             </button>
           </div>
         </div>
@@ -383,7 +399,7 @@ export default function Sales() {
               className={styles.button}
               disabled={isOrderIdSearch}
             >
-              Apply Filters
+              <SearchIcon style={{ verticalAlign: "top" }} />
             </button>
           </div>
         </div>

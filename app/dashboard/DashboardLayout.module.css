@@ -80,53 +80,6 @@
   margin-right: 8px;
 }
 
-.logoutButton {
-  background-color: #ff2f20;
-  color: #1a202c;
-  display: flex;
-  align-items: center;
-  padding: 8px;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-  font-size: 14px;
-  width: auto;
-  justify-content: flex-start;
-  transition: background-color 0.3s ease, width 0.3s ease, padding 0.3s ease,
-    font-size 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.logoutButton:hover {
-  background-color: #d32f2f;
-}
-
-.logoutButton svg {
-  margin-right: 10px;
-  transition: margin-right 0.3s ease;
-}
-
-.sidebar:not(.sidebarOpen) .logoutButton {
-  transition: width 0.3s ease, height 0.3s ease, padding 0.3s ease;
-  padding: 10px;
-  justify-content: center;
-  margin: 0;
-  width: 40px;
-  height: 40px;
-}
-
-.sidebar:not(.sidebarOpen) .logoutButton svg {
-  margin-right: 0px;
-}
-
-.sidebarOpen .logoutButton {
-  transition: width 0.3s ease, padding 0.3s ease;
-  padding: 8px 16px;
-  justify-content: flex-start;
-  width: auto;
-  height: auto;
-}
-
 .sidebarOpen + .content {
   margin-left: 240px;
   width: calc(100% - 200px);
@@ -162,6 +115,48 @@
   margin-left: 5px;
 }
 
+.scrollToTopButtonOpen {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #8a9bb3;
+  color: #1a202c;
+  border: none;
+  padding: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.scrollToTopButtonOpen:hover {
+  background-color: #1a202c;
+  color: white;
+}
+
+.scrollToTopButton:focus {
+  outline: none;
+}
+
+.scrollToTopButtonClosed {
+  position: absolute;
+  bottom: 20px;
+  margin-left: 16px;
+  background-color: #8a9bb3;
+  color: #1a202c;
+  border: none;
+  padding: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+.scrollToTopButtonClosed:hover {
+  background-color: #1a202c;
+  color: white;
+}
+
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
@@ -195,7 +190,7 @@
   }
 
   .toggleButton {
-    top: 10px;
+    top: 20px;
     z-index: 101;
     position: absolute;
   }
@@ -214,7 +209,6 @@
     margin-top: 8px;
   }
 
-  .logoutButton,
   .homeButton {
     padding: 6px 12px;
     font-size: 12px;
@@ -245,16 +239,6 @@
     margin-right: 6px;
   }
 
-  .logoutButton {
-    font-size: 12px;
-    padding: 14px;
-  }
-  .sidebar:not(.sidebarOpen) .logoutButton {
-    font-size: 12px;
-    padding: 14px;
-    width: 24px;
-    height: 24px;
-  }
   .logOutIcon {
     font-size: 18px;
   }

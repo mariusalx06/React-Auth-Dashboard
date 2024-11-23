@@ -7,13 +7,16 @@
   color: white;
   padding: 11.2px 32px;
   z-index: 1000;
-  transition: transform 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 
 .logo {
@@ -23,77 +26,94 @@
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: color 0.3s ease;
+  margin-right: auto;
 }
 
-.nav {
-  display: flex;
-  gap: 24px;
-}
-
-.link {
-  color: white;
-  font-size: 12.8px;
-  text-decoration: none;
+.menuIconWrapper,
+.userIconWrapper {
   position: relative;
-  transition: color 0.3s ease, transform 0.3s ease;
-  padding: 8px;
-  border-radius: 5px;
-  font-weight: 500;
-  overflow: hidden;
-  display: inline-block;
-  border: 1px solid white;
+  cursor: pointer;
+  margin-left: 20px;
 }
 
-.link:hover {
-  color: #1a202c;
-  transform: scale(1.2);
-  background: white;
-}
-
-.active {
-  font-weight: 500;
-  transform: scale(1.1);
-  position: relative;
-  background: white;
-  color: #1a202c;
-}
-
-.active::before {
-  content: "";
+.dropdown {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 43px;
+  right: 0;
+  background-color: #4a5b6a;
   border-radius: 5px;
-  background: transparent;
-  z-index: -1;
+  padding: 10px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 180px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
 }
 
-@media (max-width: 768px) {
-  .header {
-    padding: 8px 24px;
-  }
+.arrow {
+  position: absolute;
+  top: 33px;
+  left: 20%;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #4a5b6a;
+  z-index: 1001;
+}
 
-  .logo {
-    font-size: 14.4px;
-  }
+.dropdown .link {
+  color: #e2e8f0;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
 
-  .nav {
-    gap: 16px;
-  }
+.dropdown .link:hover {
+  background-color: #1a202c;
+}
 
-  .link {
-    font-size: 11.2px;
-    padding: 6.4px;
-  }
+.link.activeLink {
+  background-color: #1a202c;
+  font-weight: 600;
+}
 
-  .link:hover {
-    transform: scale(1.1);
-  }
+.buttonBase {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  outline: none;
+}
 
-  .active {
-    font-weight: 400;
-    transform: scale(1.05);
-  }
+.signinButton {
+  background-color: #43a047;
+  color: white;
+}
+
+.signinButton:hover {
+  background-color: #388e3c;
+  transform: scale(1.05);
+}
+
+.signinButton:focus {
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.5);
+}
+
+.logoutButton {
+  background-color: #e53935;
+  color: white;
+}
+
+.logoutButton:hover {
+  background-color: #b71c1c;
+  transform: scale(1.05);
+}
+
+.logoutButton:focus {
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.5);
 }
