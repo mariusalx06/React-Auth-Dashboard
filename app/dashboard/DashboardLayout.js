@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SessionTimeout from "@/app/components/functional/SessionTimeout";
 import styles from "@/app/dashboard/DashboardLayout.module.css";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
@@ -12,16 +12,18 @@ import EuroIcon from "@mui/icons-material/Euro";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp"; // Importing the scroll-to-top icon
 
 export default function DashboardLayout({ children }) {
-  const storedSidebarState =
-    typeof window !== "undefined"
-      ? sessionStorage.getItem("sidebarOpen") === "true"
-      : false;
-  const [sidebarOpen, setSidebarOpen] = useState(storedSidebarState);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    const storedSidebarState = sessionStorage.getItem("sidebarOpen") === "true";
+    setSidebarOpen(storedSidebarState);
+  }, []);
 
   const toggleSidebar = () => {
     setSidebarOpen((prevState) => {
-      sessionStorage.setItem("sidebarOpen", !prevState);
-      return !prevState;
+      const newState = !prevState;
+      sessionStorage.setItem("sidebarOpen", newState);
+      return newState;
     });
   };
 
@@ -76,21 +78,6 @@ export default function DashboardLayout({ children }) {
           >
             {renderNavItems(sidebarOpen)}
           </div>
-
-          <button
-            onClick={scrollToTop}
-            className={
-              sidebarOpen
-                ? styles.scrollToTopButtonClosed
-                : styles.scrollToTopButtonOpen
-            }
-            aria-label="Scroll to top"
-          >
-            <ArrowCircleUpIcon
-              fontSize="large"
-              style={{ verticalAlign: "top" }}
-            />
-          </button>
         </div>
 
         <div

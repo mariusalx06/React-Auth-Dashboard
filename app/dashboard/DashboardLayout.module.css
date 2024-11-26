@@ -13,7 +13,7 @@
   background-color: #f4f4f4;
   color: #333;
   height: calc(100vh - 50px);
-  transition: margin-right 0.5s ease, width 0.5s ease;
+  transition: margin-right 0.3s ease, width 0.3s ease;
   overflow: hidden;
   z-index: 0;
   box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.1); /* Shadow for collapsed state */
@@ -52,7 +52,7 @@
 .content {
   margin-left: 60px;
   padding: 20px;
-  transition: margin-left 0.5s ease, width 0.5s ease;
+  transition: margin-left 0.3s ease, width 0.3s ease;
   flex-grow: 1;
   background-color: white;
   z-index: 1;
@@ -113,48 +113,6 @@
 
 .opennedButton p {
   margin-left: 5px;
-}
-
-.scrollToTopButtonOpen {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #8a9bb3;
-  color: #1a202c;
-  border: none;
-  padding: 5px;
-  border-radius: 10px;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease;
-}
-
-.scrollToTopButtonOpen:hover {
-  background-color: #1a202c;
-  color: white;
-}
-
-.scrollToTopButton:focus {
-  outline: none;
-}
-
-.scrollToTopButtonClosed {
-  position: absolute;
-  bottom: 20px;
-  margin-left: 16px;
-  background-color: #8a9bb3;
-  color: #1a202c;
-  border: none;
-  padding: 5px;
-  border-radius: 10px;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease;
-}
-.scrollToTopButtonClosed:hover {
-  background-color: #1a202c;
-  color: white;
 }
 
 @media (max-width: 768px) {

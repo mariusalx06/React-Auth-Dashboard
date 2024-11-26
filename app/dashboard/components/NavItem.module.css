@@ -5,7 +5,8 @@
   margin-bottom: 5px;
 }
 
-.opennedButton {
+.opennedButton,
+.closedButton {
   background: transparent;
   display: flex;
   align-items: center;
@@ -15,42 +16,32 @@
   padding: 6px 10px;
   border-radius: 50px;
   font-size: 16px;
-  transition: background-color 0.5s ease;
+  transition: background-color 0.5s ease, transform 0.3s ease;
+  color: #007aff;
 }
 
-.opennedButton:hover {
-  background-color: #d1d9e6;
-}
-
-.opennedButton.active {
-  background-color: #8a9bb3;
-}
-.opennedButton.active:hover {
-  background-color: #1a202c;
-  color: white;
-}
-
-.closedButton {
-  background: transparent;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  padding: 6px 10px;
-  border-radius: 50px;
-  transition: background-color 0.5s ease;
-}
-
+.opennedButton:hover,
 .closedButton:hover {
   background-color: #d1d9e6;
 }
 
+.opennedButton.active,
 .closedButton.active {
-  background-color: #8a9bb3;
-}
-
-.closedButton.active:hover {
   background-color: #1a202c;
   color: white;
+}
+.opennedButton.active:hover,
+.closedButton.active:hover {
+  transform: scale(1.1);
+}
+
+.opennedButton.disabled,
+.closedButton.disabled,
+.opennedButton:disabled,
+.closedButton:disabled {
+  background-color: #f1f1f1; /* Light gray background */
+  color: #ccc; /* Light gray text */
+  cursor: not-allowed; /* Show the "not allowed" cursor */
 }
 
 @media (max-width: 768px) {
