@@ -6,10 +6,13 @@ export default function NavItem(props) {
   const router = useRouter();
   const pathname = usePathname();
   const isActive = pathname === props.href;
-  const isInactive = props.inactive === true;
 
   const handleClick = () => {
-    router.push(props.href);
+    if (props.target === "_blank") {
+      window.open(props.href, "_blank");
+    } else {
+      router.push(props.href);
+    }
   };
 
   const buttonClass = props.isSidebarOpen
@@ -21,7 +24,6 @@ export default function NavItem(props) {
       <button
         className={`${buttonClass} ${isActive ? styles.active : ""}`}
         onClick={handleClick}
-        disabled={isInactive}
         title={props.inactive ? "This option is currently unavailable" : ""}
       >
         <props.Icon className={styles.icon} />

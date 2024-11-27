@@ -1,0 +1,108 @@
+.plansPage h1 {
+  margin-left: 20px;
+  padding-top: 20px;
+  margin-bottom: 20px;
+}
+
+.separator {
+  border: none;
+  border-top: 2px solid #1a202c;
+  margin: 20px auto;
+  width: 100%;
+}
+
+.carouselWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  min-height: 300px;
+  overflow: hidden;
+  background-color: #f0f0f0;
+  margin: 0 auto;
+  z-index: 0;
+  width: 100%;
+}
+
+.carouselContainer {
+  display: flex;
+  justify-content: flex-start;
+  scroll-snap-type: x mandatory;
+  overflow-x: auto;
+  width: 100%;
+  user-select: none;
+  will-change: transform;
+  cursor: grab;
+  transition: transform 0.1s ease-out;
+  padding: 40px 10px;
+}
+
+.carouselContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.cardContainer {
+  flex: none;
+  scroll-snap-align: center;
+  width: 300px;
+  transition: transform 0.3s ease;
+}
+.main {
+  text-align: center;
+  margin-top: 60px;
+  flex-grow: 1;
+  padding-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.textWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin: 20px;
+}
+
+.switchingText {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.showFirst {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hideFirst {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+
+.showSecond {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hideSecond {
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+@media (min-width: 992px) {
+  .carouselContainer {
+    justify-content: center;
+  }
+}

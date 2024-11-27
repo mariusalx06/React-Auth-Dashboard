@@ -25,17 +25,17 @@ export default function Register() {
   const [showRedirect, setShowRedirect] = useState(false);
   const [countRedirect, setCountRedirect] = useState(5);
 
-  useEffect(() => {
-    if (status === "authenticated" && session?.user?.agentid != "M001") {
-      setShowAlert(true);
-    }
-    if (status === "authenticated" && session?.user?.agentid === "M001") {
-      return;
-    }
-    if (status === "unauthenticated") {
-      setShowRedirect(true);
-    }
-  }, [status]);
+  // useEffect(() => {
+  //   if (status === "authenticated" && session?.user?.agentid != "M001") {
+  //     setShowAlert(true);
+  //   }
+  //   if (status === "authenticated" && session?.user?.agentid === "M001") {
+  //     return;
+  //   }
+  //   if (status === "unauthenticated") {
+  //     setShowRedirect(true);
+  //   }
+  // }, [status]);
 
   useEffect(() => {
     if (showAlert && countdown > 0) {

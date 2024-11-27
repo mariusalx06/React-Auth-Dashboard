@@ -15,7 +15,7 @@ export const authOptions = {
         const { email, password } = credentials;
         try {
           const res = await database.query(
-            "SELECT * FROM users WHERE email = $1",
+            "SELECT * FROM agents WHERE email = $1",
             [email]
           );
           const user = res.rows[0];
@@ -49,13 +49,13 @@ export const authOptions = {
         token.name = user.name;
 
         const userFromDb = await database.query(
-          "SELECT * FROM users WHERE email = $1",
+          "SELECT * FROM agents WHERE email = $1",
           [user.email]
         );
 
         const existingUser = userFromDb.rows[0];
         if (existingUser) {
-          token.agentid = existingUser.agentid;
+          token.agentid = existingUser.agent_id;
         }
         token.provider = account?.provider;
       }

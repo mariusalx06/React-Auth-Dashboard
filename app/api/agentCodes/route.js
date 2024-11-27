@@ -3,7 +3,7 @@ import database from "../../../lib/db";
 export async function GET() {
   try {
     const result = await database.query(
-      "SELECT agentid FROM users WHERE agentid IS NOT NULL"
+      "SELECT agent_id FROM agents WHERE agent_id IS NOT NULL"
     );
 
     const agents = result.rows.map((row) => row.agentid);

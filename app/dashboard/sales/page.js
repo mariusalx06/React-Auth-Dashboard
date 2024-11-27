@@ -248,284 +248,291 @@ export default function Sales() {
 
   return (
     <DashboardLayout>
-      <h1>Sales</h1>
-      <hr className={styles.separator} />
-      <button onClick={toggleOptions} className={styles.toggleButton}>
-        {isVisible ? "Hide" : "Expand"}
-      </button>
+      <div className={styles.salesPage}>
+        <h1>Sales</h1>
+        <hr className={styles.separator} />
+        <button onClick={toggleOptions} className={styles.toggleButton}>
+          {isVisible ? "Hide" : "Expand"}
+        </button>
 
-      <div
-        className={`${styles.renderOptions} ${
-          isVisible ? styles.visible : styles.hidden
-        }`}
-      >
-        <div className={styles.searchContainer}>
-          <div className={styles.checkboxContainer}>
-            <div
-              onClick={handleCheckboxChange}
-              className={styles.checkboxWrapper}
-            >
-              {isOrderIdSearch ? (
-                <CheckBoxIcon
-                  className={styles.checkboxIcon}
-                  style={{ verticalAlign: "middle" }}
-                />
-              ) : (
-                <CheckBoxOutlineBlankIcon
-                  className={styles.checkboxIcon}
-                  style={{ verticalAlign: "middle" }}
-                />
-              )}
-              <label className={styles.searchLabel}>Search By Order ID</label>
-            </div>
-          </div>
-
-          <div
-            className={`${styles.inputButtonWrapper} ${
-              isOrderIdSearch ? styles.visible : ""
-            }`}
-          >
-            <input
-              type="text"
-              value={orderId}
-              onChange={(e) => setOrderId(e.target.value)}
-              className={styles.orderInput}
-              disabled={!isOrderIdSearch}
-            />
-            <button
-              onClick={fetchSalesByOrderId}
-              className={styles.button}
-              disabled={!isOrderIdSearch || orderId.trim() === ""}
-            >
-              <SearchIcon style={{ verticalAlign: "top" }} />
-            </button>
-          </div>
-        </div>
-
-        <div className={styles.options}>
-          <div className={styles.filterSection}>
-            <div>
-              <label>Agent ID:</label>
-              <select
-                value={selectedAgentId}
-                onChange={handleAgentChange}
-                disabled={isOrderIdSearch}
-                className={`${styles.selectInput} ${
-                  isOrderIdSearch ? styles.disabled : ""
-                }`}
+        <div
+          className={`${styles.renderOptions} ${
+            isVisible ? styles.visible : styles.hidden
+          }`}
+        >
+          <div className={styles.searchContainer}>
+            <div className={styles.checkboxContainer}>
+              <div
+                onClick={handleCheckboxChange}
+                className={styles.checkboxWrapper}
               >
-                {/* Conditionally display options based on logged-in agent */}
-                {[
-                  "Select",
-                  ...(session?.user?.agentid === "M001"
-                    ? ["All Agents", ...agents]
-                    : [session?.user?.agentid]),
-                ].map((agentId, index) => (
-                  <option key={index} value={agentId}>
-                    {agentId}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label>Month:</label>
-              <select
-                value={selectedMonth}
-                onChange={handleMonthChange}
-                disabled={isOrderIdSearch}
-                className={`${styles.selectInput} ${
-                  isOrderIdSearch ? styles.disabled : ""
-                }`}
-              >
-                {months.map((month, index) => (
-                  <option key={index} value={month}>
-                    {new Date(2020, month - 1).toLocaleString("en-US", {
-                      month: "long",
-                    })}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label>Year:</label>
-              <select
-                value={selectedYear}
-                onChange={handleYearChange}
-                disabled={isOrderIdSearch}
-                className={`${styles.selectInput} ${
-                  isOrderIdSearch ? styles.disabled : ""
-                }`}
-              >
-                {years.map((year, index) => (
-                  <option key={index} value={year}>
-                    {year}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <button
-                onClick={fetchSalesWithFilters}
-                className={`${styles.button} ${
-                  isOrderIdSearch || isFilterActive ? styles.disabled : ""
-                }`}
-                disabled={isOrderIdSearch || isFilterActive}
-              >
-                <SearchIcon style={{ verticalAlign: "top" }} />{" "}
-              </button>
-            </div>
-          </div>
-
-          <div className={styles.filterSection}>
-            <div>
-              <label>Date Sort:</label>
-              <select
-                value={selectedDateSort}
-                onChange={handleDateSortChange}
-                disabled={isOrderIdSearch}
-                className={`${styles.selectInput} ${
-                  isOrderIdSearch ? styles.disabled : ""
-                }`}
-              >
-                {["Select", "Ascending", "Descending"].map((option, index) => (
-                  <option key={index} value={option}>
-                    {option === "Select"
-                      ? "Select"
-                      : option.charAt(0).toUpperCase() + option.slice(1)}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label>NPS Score</label>
-              <select
-                value={selectedCustomerSatisfaction}
-                onChange={handleCustomerSatisfactionChange}
-                disabled={isOrderIdSearch}
-                className={`${styles.selectInput} ${
-                  isOrderIdSearch ? styles.disabled : ""
-                }`}
-              >
-                {["Select", "Highest to Lowest", "Lowest to Highest"].map(
-                  (option, index) => (
-                    <option key={index} value={option}>
-                      {option}
-                    </option>
-                  )
+                {isOrderIdSearch ? (
+                  <CheckBoxIcon
+                    className={styles.checkboxIcon}
+                    style={{ verticalAlign: "middle" }}
+                  />
+                ) : (
+                  <CheckBoxOutlineBlankIcon
+                    className={styles.checkboxIcon}
+                    style={{ verticalAlign: "middle" }}
+                  />
                 )}
-              </select>
+                <label className={styles.searchLabel}>Search By Order ID</label>
+              </div>
             </div>
 
-            <div>
-              <label>Device Code:</label>
-              <select
-                value={selectedDeviceCode}
-                onChange={handleDeviceCodeChange}
-                disabled={isOrderIdSearch}
-                className={`${styles.selectInput} ${
-                  isOrderIdSearch ? styles.disabled : ""
-                }`}
-              >
-                {["Select", ...deviceCodes].map((code, index) => (
-                  <option key={index} value={code}>
-                    {code}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
+            <div
+              className={`${styles.inputButtonWrapper} ${
+                isOrderIdSearch ? styles.visible : ""
+              }`}
+            >
+              <input
+                type="text"
+                value={orderId}
+                onChange={(e) => setOrderId(e.target.value)}
+                className={styles.orderInput}
+                disabled={!isOrderIdSearch}
+              />
               <button
-                onClick={applyFilters}
-                className={`${styles.button} ${
-                  isOrderIdSearch || !isFilterActive ? styles.disabled : ""
-                }`}
-                disabled={isOrderIdSearch}
+                onClick={fetchSalesByOrderId}
+                className={styles.button}
+                disabled={!isOrderIdSearch || orderId.trim() === ""}
               >
                 <SearchIcon style={{ verticalAlign: "top" }} />
               </button>
             </div>
           </div>
+
+          <div className={styles.options}>
+            <div className={styles.filterSection}>
+              <div>
+                <label>Agent ID:</label>
+                <select
+                  value={selectedAgentId}
+                  onChange={handleAgentChange}
+                  disabled={isOrderIdSearch}
+                  className={`${styles.selectInput} ${
+                    isOrderIdSearch ? styles.disabled : ""
+                  }`}
+                >
+                  {/* Conditionally display options based on logged-in agent */}
+                  {[
+                    "Select",
+                    ...(session?.user?.agentid === "M001"
+                      ? ["All Agents", ...agents]
+                      : [session?.user?.agentid]),
+                  ].map((agentId, index) => (
+                    <option key={index} value={agentId}>
+                      {agentId}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label>Month:</label>
+                <select
+                  value={selectedMonth}
+                  onChange={handleMonthChange}
+                  disabled={isOrderIdSearch}
+                  className={`${styles.selectInput} ${
+                    isOrderIdSearch ? styles.disabled : ""
+                  }`}
+                >
+                  {months.map((month, index) => (
+                    <option key={index} value={month}>
+                      {new Date(2020, month - 1).toLocaleString("en-US", {
+                        month: "long",
+                      })}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label>Year:</label>
+                <select
+                  value={selectedYear}
+                  onChange={handleYearChange}
+                  disabled={isOrderIdSearch}
+                  className={`${styles.selectInput} ${
+                    isOrderIdSearch ? styles.disabled : ""
+                  }`}
+                >
+                  {years.map((year, index) => (
+                    <option key={index} value={year}>
+                      {year}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <button
+                  onClick={fetchSalesWithFilters}
+                  className={`${styles.button} ${
+                    isOrderIdSearch || isFilterActive ? styles.disabled : ""
+                  }`}
+                  disabled={isOrderIdSearch || isFilterActive}
+                >
+                  <SearchIcon style={{ verticalAlign: "top" }} />{" "}
+                </button>
+              </div>
+            </div>
+
+            <div className={styles.filterSection}>
+              <div>
+                <label>Date Sort:</label>
+                <select
+                  value={selectedDateSort}
+                  onChange={handleDateSortChange}
+                  disabled={isOrderIdSearch}
+                  className={`${styles.selectInput} ${
+                    isOrderIdSearch ? styles.disabled : ""
+                  }`}
+                >
+                  {["Select", "Ascending", "Descending"].map(
+                    (option, index) => (
+                      <option key={index} value={option}>
+                        {option === "Select"
+                          ? "Select"
+                          : option.charAt(0).toUpperCase() + option.slice(1)}
+                      </option>
+                    )
+                  )}
+                </select>
+              </div>
+
+              <div>
+                <label>NPS Score</label>
+                <select
+                  value={selectedCustomerSatisfaction}
+                  onChange={handleCustomerSatisfactionChange}
+                  disabled={isOrderIdSearch}
+                  className={`${styles.selectInput} ${
+                    isOrderIdSearch ? styles.disabled : ""
+                  }`}
+                >
+                  {["Select", "Highest to Lowest", "Lowest to Highest"].map(
+                    (option, index) => (
+                      <option key={index} value={option}>
+                        {option}
+                      </option>
+                    )
+                  )}
+                </select>
+              </div>
+
+              <div>
+                <label>Device Code:</label>
+                <select
+                  value={selectedDeviceCode}
+                  onChange={handleDeviceCodeChange}
+                  disabled={isOrderIdSearch}
+                  className={`${styles.selectInput} ${
+                    isOrderIdSearch ? styles.disabled : ""
+                  }`}
+                >
+                  {["Select", ...deviceCodes].map((code, index) => (
+                    <option key={index} value={code}>
+                      {code}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <button
+                  onClick={applyFilters}
+                  className={`${styles.button} ${
+                    isOrderIdSearch || !isFilterActive ? styles.disabled : ""
+                  }`}
+                  disabled={isOrderIdSearch}
+                >
+                  <SearchIcon style={{ verticalAlign: "top" }} />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {errorMessage && (
+            <div className={styles.errorMessage}>
+              <span>{errorMessage}</span>
+              <button
+                className={styles.closeButton}
+                onClick={closeErrorMessage}
+              >
+                x
+              </button>
+            </div>
+          )}
         </div>
 
-        {errorMessage && (
-          <div className={styles.errorMessage}>
-            <span>{errorMessage}</span>
-            <button className={styles.closeButton} onClick={closeErrorMessage}>
-              x
-            </button>
-          </div>
-        )}
-      </div>
+        <hr className={styles.separator} />
 
-      <hr className={styles.separator} />
+        <div
+          className={`${styles.renderSales} ${
+            isOrderIdSearch ? styles.noScroll : ""
+          }`}
+        >
+          {!isOrderIdSearch && hasFetchedSales && (
+            <div className={styles.stickyHeader}>
+              <div>
+                {selectedAgentId !== "Select" && (
+                  <div>
+                    <div className={styles.stickyHeaderDetails}>
+                      <p>
+                        <strong>Agent: </strong>
+                        {selectedAgentId !== "Select" ? selectedAgentId : ""}
+                      </p>
+                      <p>
+                        <strong>Month: </strong>
+                        {selectedMonth}
+                      </p>
+                      <p>
+                        <strong>Year: </strong>
+                        {selectedYear}
+                      </p>
+                    </div>
+                    <div className={styles.stickyHeaderFilter}>
+                      {selectedDeviceCode !== "Select" && (
+                        <p>
+                          <strong>Device Code: </strong>
+                          {selectedDeviceCode}
+                        </p>
+                      )}
 
-      <div
-        className={`${styles.renderSales} ${
-          isOrderIdSearch ? styles.noScroll : ""
-        }`}
-      >
-        {!isOrderIdSearch && hasFetchedSales && (
-          <div className={styles.stickyHeader}>
-            <div>
-              {selectedAgentId !== "Select" && (
-                <div>
-                  <div className={styles.stickyHeaderDetails}>
-                    <p>
-                      <strong>Agent: </strong>
-                      {selectedAgentId !== "Select" ? selectedAgentId : ""}
-                    </p>
-                    <p>
-                      <strong>Month: </strong>
-                      {selectedMonth}
-                    </p>
-                    <p>
-                      <strong>Year: </strong>
-                      {selectedYear}
-                    </p>
+                      {selectedCustomerSatisfaction !== "Select" && (
+                        <p>
+                          <strong>NPS Score: </strong>
+                          {selectedCustomerSatisfaction}
+                        </p>
+                      )}
+
+                      {selectedDateSort !== "Select" && (
+                        <p>
+                          <strong>Date: </strong>
+                          {selectedDateSort}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                  <div className={styles.stickyHeaderFilter}>
-                    {selectedDeviceCode !== "Select" && (
-                      <p>
-                        <strong>Device Code: </strong>
-                        {selectedDeviceCode}
-                      </p>
-                    )}
-
-                    {selectedCustomerSatisfaction !== "Select" && (
-                      <p>
-                        <strong>NPS Score: </strong>
-                        {selectedCustomerSatisfaction}
-                      </p>
-                    )}
-
-                    {selectedDateSort !== "Select" && (
-                      <p>
-                        <strong>Date: </strong>
-                        {selectedDateSort}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-        <div>
-          {sales.length > 0 && (
-            <div className={styles.salesList}>
-              {sales.map((sale, index) => (
-                <SaleItem key={index} sale={sale} />
-              ))}
+                )}
+              </div>
             </div>
           )}
-          {hasFetchedSales && sales.length === 0 && (
-            <div>No sales data available.</div>
-          )}
+          <div>
+            {sales.length > 0 && (
+              <div className={styles.salesList}>
+                {sales.map((sale, index) => (
+                  <SaleItem key={index} sale={sale} />
+                ))}
+              </div>
+            )}
+            {hasFetchedSales && sales.length === 0 && (
+              <div>No sales data available.</div>
+            )}
+          </div>
         </div>
       </div>
     </DashboardLayout>

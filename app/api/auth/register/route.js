@@ -6,7 +6,7 @@ export async function POST(req) {
 
   try {
     const userCheck = await database.query(
-      "SELECT * FROM users WHERE email = $1",
+      "SELECT * FROM agents WHERE email = $1",
       [email]
     );
 
@@ -20,7 +20,7 @@ export async function POST(req) {
     const hashedPassword = await bcrypt.hash(password, 12);
 
     const result = await database.query(
-      "INSERT INTO users (email, password, name, agentid, role) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      "INSERT INTO agents (email, password, name, agent_id, role) VALUES ($1, $2, $3, $4, $5) RETURNING *",
       [email, hashedPassword, name, agentid, role]
     );
 

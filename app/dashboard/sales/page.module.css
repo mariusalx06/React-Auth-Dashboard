@@ -1,7 +1,13 @@
+.salesPage h1 {
+  margin-left: 20px;
+  padding-top: 20px;
+  margin-bottom: 20px;
+}
+
 .separator {
   border: none;
   border-top: 2px solid #1a202c;
-  margin: 20px 0;
+  margin: 20px auto;
   width: 100%;
 }
 
@@ -204,7 +210,8 @@
 
 .renderOptions {
   width: 100%;
-  padding: 10px;
+  margin: 10px 0px;
+  margin-left: 20px;
   overflow: hidden;
   max-height: 0;
   transition: max-height 0.5s ease-out;
@@ -225,7 +232,7 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-left: 10px;
+  margin-left: 20px;
 }
 
 .toggleButton:hover {
@@ -240,6 +247,8 @@
   max-height: 600px;
   width: 80%;
   overflow-y: scroll;
+  margin: 10px 0px;
+  margin-left: 20px;
 }
 .noScroll {
   overflow-y: hidden;

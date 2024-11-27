@@ -1,27 +1,19 @@
-.container {
-  display: flex;
-  min-height: 100vh;
-  margin-top: 50px;
-  transition: margin-left 0.3s ease;
-}
-
 .sidebar {
   position: fixed;
   top: 50px;
   left: 0;
   width: 60px;
-  background-color: #f4f4f4;
+  background-color: #f0f0f0;
   color: #333;
   height: calc(100vh - 50px);
   transition: margin-right 0.3s ease, width 0.3s ease;
   overflow: hidden;
-  z-index: 0;
-  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.1); /* Shadow for collapsed state */
+  z-index: 1;
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.2);
 }
 
 .sidebarOpen {
   width: 240px;
-  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.2); /* Stronger shadow when expanded */
 }
 
 .toggleButton {
@@ -51,14 +43,13 @@
 
 .content {
   margin-left: 60px;
-  padding: 20px;
   transition: margin-left 0.3s ease, width 0.3s ease;
   flex-grow: 1;
   background-color: white;
-  z-index: 1;
+  z-index: 0;
   width: calc(100% - 60px);
-  box-shadow: -4px 0 8px rgba(0, 0, 0, 0.1);
-  border-left: 2px solid #e0e0e0;
+  min-height: calc(100vh - 50px);
+  margin-top: 50px;
 }
 
 .welcome {
@@ -84,7 +75,6 @@
   margin-left: 240px;
   width: calc(100% - 200px);
   box-shadow: -4px 0 8px rgba(0, 0, 0, 0.1);
-  border-left: 2px solid #e0e0e0;
 }
 
 .sidebarOpen .sidebarContent {
@@ -116,19 +106,15 @@
 }
 
 @media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-    margin-top: 40px;
-  }
-
   .sidebar {
     width: 40px;
     height: calc(100vh - 40px);
     position: fixed;
     top: 40px;
     left: 0;
-    z-index: 0;
+    z-index: 1;
     transition: width 0.3s ease;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.2);
   }
 
   .sidebarOpen {
@@ -137,14 +123,13 @@
 
   .content {
     margin-left: 40px;
-    padding: 15px;
     transition: margin-left 0.3s ease, width 0.3s ease;
     flex-grow: 1;
     background-color: white;
-    z-index: 1;
+    z-index: 0;
     width: calc(100% - 40px);
     box-shadow: -4px 0 8px rgba(0, 0, 0, 0.1);
-    border-left: 2px solid #e0e0e0;
+    min-height: calc(100vh - 40px);
   }
 
   .toggleButton {

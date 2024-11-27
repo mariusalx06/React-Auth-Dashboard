@@ -1,0 +1,85 @@
+/* General Card Styles */
+.cardContainer {
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid #e6e6e6;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 280px;
+  margin: 15px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.cardContainer:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+}
+
+.cardTitle {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.cardPrice {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e75bc; /* Blue similar to Vodafone */
+  margin-bottom: 20px;
+}
+
+/* Scoped styles for hr */
+.cardHr {
+  border: none;
+  border-top: 2px solid #f2f2f2;
+  margin-bottom: 20px;
+}
+
+.cardList {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 20px;
+}
+
+.cardListItem {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 12px;
+  min-width: 250px;
+}
+
+.cardListItem:last-child {
+  margin-bottom: 0;
+}
+
+.cardBtn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  width: 100%;
+}
+
+.cardBtnEdit {
+  background-color: #ff4b5c; /* Red color similar to Vodafone's */
+  color: white;
+}
+
+.cardBtnEdit:hover {
+  background-color: #e43a4b;
+  transform: scale(1.05);
+}
+
+.cardBtnEdit:active {
+  transform: scale(0.98);
+}
+
+.fiveGReady {
+  font-weight: 500;
+  color: #44c3a1;
+  font-size: 1rem;
+}
