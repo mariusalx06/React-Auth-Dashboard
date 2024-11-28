@@ -37,6 +37,10 @@
   padding: 40px 10px;
 }
 
+.carouselContainer.centered {
+  justify-content: center;
+}
+
 .carouselContainer::-webkit-scrollbar {
   display: none;
 }
@@ -47,6 +51,7 @@
   width: 300px;
   transition: transform 0.3s ease;
 }
+
 .main {
   text-align: center;
   margin-top: 60px;
@@ -70,39 +75,81 @@
   margin: 20px;
 }
 
-.switchingText {
+.switchingTextWrapper {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  text-align: center;
   opacity: 0;
   transform: translateY(100%);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.switchingTextWrapper p {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.switchingTextWrapper p span {
+  display: block;
 }
 
 .showFirst {
   opacity: 1;
   transform: translateY(0);
+  z-index: 1;
 }
 
 .hideFirst {
   opacity: 0;
   transform: translateY(-100%);
+  z-index: -1;
 }
 
 .showSecond {
   opacity: 1;
   transform: translateY(0);
+  z-index: 1;
 }
 
 .hideSecond {
   opacity: 0;
   transform: translateY(100%);
+  z-index: -1;
 }
 
-@media (min-width: 992px) {
-  .carouselContainer {
-    justify-content: center;
+.textWrapper {
+  position: relative;
+  height: 50px;
+}
+
+.swipeIcon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 48px;
+  color: #1a202c;
+  cursor: pointer;
+  opacity: 1;
+  animation: moveLeftRight 1s ease-in-out infinite;
+  transition: opacity 1s ease;
+  z-index: 100;
+}
+@keyframes moveLeftRight {
+  0% {
+    right: 10px;
   }
+  50% {
+    right: 20px;
+  }
+  100% {
+    right: 10px;
+  }
+}
+
+.carouselWrapper {
+  position: relative;
+}
+
+.main strong {
+  border-bottom: 2px solid #f0a500;
 }

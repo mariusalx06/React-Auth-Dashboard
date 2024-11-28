@@ -26,7 +26,6 @@
 .cardPrice {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #1e75bc; /* Blue similar to Vodafone */
   margin-bottom: 20px;
 }
 
@@ -65,12 +64,12 @@
 }
 
 .cardBtnEdit {
-  background-color: #ff4b5c; /* Red color similar to Vodafone's */
+  background-color: #f0a500; /* Red color similar to Vodafone's */
   color: white;
 }
 
 .cardBtnEdit:hover {
-  background-color: #e43a4b;
+  background-color: #e07b00;
   transform: scale(1.05);
 }
 
@@ -82,4 +81,24 @@
   font-weight: 500;
   color: #44c3a1;
   font-size: 1rem;
+}
+
+.monthText {
+  font-size: 1rem;
+  color: #999999;
+}
+
+.rounded5G {
+  background-color: #f0a500;
+  padding: 7px;
+  border-radius: 50%;
+  color: #1a202c;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.cardTitleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

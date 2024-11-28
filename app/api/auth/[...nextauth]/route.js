@@ -56,6 +56,7 @@ export const authOptions = {
         const existingUser = userFromDb.rows[0];
         if (existingUser) {
           token.agentid = existingUser.agent_id;
+          token.role = existingUser.role;
         }
         token.provider = account?.provider;
       }

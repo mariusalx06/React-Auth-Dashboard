@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import styles from "./CardItem.module.css"; // Importing CSS Module
+import styles from "./CardItem.module.css";
 import { useSession } from "next-auth/react";
 
 export default function CardItem(props) {
@@ -14,11 +14,31 @@ export default function CardItem(props) {
 
   return (
     <div className={styles.cardContainer}>
-      <h2 className={styles.cardTitle}>{props.title}</h2>
+      {props.type === "device" ? (
+        <>
+          <h2 className={styles.cardTitle}>{props.title}</h2>
 
-      <hr className={styles.cardHr} />
+          <hr className={styles.cardHr} />
 
-      <h2 className={styles.cardPrice}>{props.price}</h2>
+          <h2 className={styles.cardPrice}>{props.price}</h2>
+        </>
+      ) : props.type === "plan" ? (
+        <>
+          <div className={styles.cardTitleContainer}>
+            <h2 className={styles.cardTitle}>{props.title}</h2>
+            <span className={styles.rounded5G}>5G</span>
+          </div>
+
+          <hr className={styles.cardHr} />
+
+          <h2 className={styles.cardPrice}>
+            {props.price}
+            <span className={styles.monthText}>/month</span>
+          </h2>
+        </>
+      ) : (
+        <span>No valid data</span>
+      )}
 
       <ul className={styles.cardList}>
         {props.type === "device" ? (
@@ -38,6 +58,9 @@ export default function CardItem(props) {
             </li>
             <li className={styles.cardListItem}>
               {props.smsLimit} National SMS
+            </li>
+            <li className={styles.cardListItem}>
+              {props.internetRoamingLimit} Roaming Internet
             </li>
             <li className={styles.cardListItem}>5G Ready</li>
           </>
