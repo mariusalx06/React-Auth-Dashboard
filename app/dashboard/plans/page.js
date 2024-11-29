@@ -2,10 +2,11 @@
 import { useRef, useEffect, useState } from "react";
 import DashboardLayout from "../DashboardLayout";
 import styles from "./page.module.css";
-import CardItem from "../components/CardItem";
-import NewPlanForm from "../components/NewPlanForm";
+import CardItem from "./components/CardItem";
+import NewPlanForm from "./components/NewPlanForm";
 import Loading from "@/app/components/functional/Loading";
 import SwipeIcon from "@mui/icons-material/Swipe";
+import ErrorMessage from "@/app/components/functional/ErrorMessage";
 
 export default function Plans() {
   const carouselRef = useRef(null);
@@ -22,6 +23,11 @@ export default function Plans() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showSwipeIcon, setShowSwipeIcon] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const closeErrorMessage = () => {
+    setErrorMessage("");
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -125,6 +131,11 @@ export default function Plans() {
   return (
     <DashboardLayout>
       <div className={styles.plansPage}>
+        {errorMessage && (
+          <div>
+            <ErrorMessage message={errorMessage} onClose={closeErrorMessage} />
+          </div>
+        )}
         <h1>Price Plans</h1>
         <hr className={styles.separator} />
 
@@ -180,27 +191,22 @@ export default function Plans() {
             {plans.map((plan) => (
               <CardItem
                 key={plan.id}
-                title={plan.plan_name}
-                price={`${plan.plan_price}€`}
-                internetLimit={`${plan.internet_data_limit_mb} MB`}
-                voiceLimit={
-                  plan.voice_minutes_limit === "Unlimited"
-                    ? "Unlimited"
-                    : `${plan.voice_minutes_limit} `
-                }
-                smsLimit={
-                  plan.sms_limit === "Unlimited"
-                    ? "Unlimited"
-                    : `${plan.sms_limit} SMS`
-                }
-                internetRoamingLimit={`${plan.internet_roaming_data_limit_mb} MB`}
+                id={plan.id}
+                planName={plan.plan_name}
+                price={plan.plan_price}
+                internetLimit={plan.internet_data_limit_mb}
+                voiceLimit={plan.voice_minutes_limit}
+                smsLimit={plan.sms_limit}
+                internetRoamingLimit={plan.internet_roaming_data_limit_mb}
                 type="plan"
+                onSuccess={fetchPlans}
+                onError={setErrorMessage}
               />
             ))}
           </div>
         </div>
         <div className={styles.main}>
-          <NewPlanForm onSuccess={fetchPlans} />
+          <NewPlanForm onSuccess={fetchPlans} onError={setErrorMessage} />
         </div>
       </div>
     </DashboardLayout>

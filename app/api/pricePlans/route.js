@@ -20,7 +20,6 @@ export async function GET() {
 export async function POST(request) {
   try {
     const token = await getToken({ req: request });
-    console.log(token);
 
     if (!token) {
       return new Response(
@@ -50,14 +49,18 @@ export async function POST(request) {
     const lastPlanResponse = await database.query(
       "SELECT plan_id FROM plans ORDER BY plan_id DESC LIMIT 1"
     );
-    let lastPlanId = lastPlanResponse.rows[0]?.plan_id || "P0";
+    let lastPlanId = lastPlanResponse.rows[0]?.plan_id || "P000";
+
     let lastNumber = parseInt(lastPlanId.slice(1), 10);
-    const newPlanId = `P${lastNumber + 1}`;
+    if (isNaN(lastNumber)) lastNumber = 0;
+
+    const newNumber = lastNumber + 1;
+    const newPlanId = `P${newNumber.toString().padStart(3, "0")}`;
 
     const query = `
-        INSERT INTO plans (plan_id, plan_name, plan_price, internet_data_limit_mb, voice_minutes_limit, sms_limit, internet_roaming_data_limit_mb)
-        VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;
-      `;
+      INSERT INTO plans (plan_id, plan_name, plan_price, internet_data_limit_mb, voice_minutes_limit, sms_limit, internet_roaming_data_limit_mb)
+      VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;
+    `;
     const values = [
       newPlanId,
       plan_name,
@@ -82,6 +85,24 @@ export async function POST(request) {
 
 export async function DELETE() {
   try {
+    const token = await getToken({ req: request });
+
+    if (!token) {
+      return new Response(
+        JSON.stringify({ error: "Unauthorized access: No authentication" }),
+        { status: 401 }
+      );
+    }
+
+    if (token.role !== "manager") {
+      return new Response(
+        JSON.stringify({
+          error: "Unauthorized access: You do not have permission",
+        }),
+        { status: 403 }
+      );
+    }
+
     const query = "DELETE FROM plans RETURNING *;";
 
     const response = await database.query(query);

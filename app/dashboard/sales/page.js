@@ -8,7 +8,7 @@ import styles from "./page.module.css";
 import axios from "axios";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ErrorMessage from "@/app/components/functional/ErrorMessage";
 
 export default function Sales() {
   const { data: session, status } = useSession();
@@ -73,11 +73,6 @@ export default function Sales() {
   }, []);
 
   const fetchSalesByOrderId = async () => {
-    if (!orderId) {
-      setErrorMessage("Please enter an Order ID.");
-      return;
-    }
-
     try {
       const response = await axios.get(`/api/sales?orderId=${orderId}`, {
         withCredentials: true,
@@ -85,11 +80,11 @@ export default function Sales() {
       setSales(response.data);
       setHasFetchedSales(true);
       setErrorMessage("");
+      toggleOptions();
     } catch (error) {
       console.error("Error fetching sales by Order ID:", error);
-      alert(`Error fetching sales data: ${error.message}`);
+      setErrorMessage(`Error fetching sales data: ${error.message}`);
     }
-    toggleOptions();
   };
 
   const fetchSalesWithFilters = async () => {
@@ -104,11 +99,11 @@ export default function Sales() {
       setSales(response.data);
       setHasFetchedSales(true);
       setErrorMessage("");
+      toggleOptions();
     } catch (error) {
       console.error("Error fetching sales with filters:", error);
-      alert(`Error fetching sales data: ${error.message}`);
+      setErrorMessage(`Error fetching sales data: ${error.message}`);
     }
-    toggleOptions();
   };
 
   const applyFilters = async () => {
@@ -149,11 +144,11 @@ export default function Sales() {
       });
       setSales(response.data);
       setHasFetchedSales(true);
+      toggleOptions();
     } catch (error) {
       console.error("Error applying filters:", error);
-      alert(`Error fetching sales data: ${error.message}`);
+      setErrorMessage(`Error fetching sales data: ${error.message}`);
     }
-    toggleOptions();
   };
 
   const handleAgentChange = (e) => {
@@ -218,16 +213,6 @@ export default function Sales() {
     setErrorMessage("");
   };
 
-  useEffect(() => {
-    if (errorMessage) {
-      const timer = setTimeout(() => {
-        setErrorMessage("");
-      }, 5000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [errorMessage]);
-
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 6 }, (_, i) =>
     (currentYear - i).toString()
@@ -244,6 +229,10 @@ export default function Sales() {
 
   const toggleOptions = () => {
     setIsVisible((prevState) => !prevState);
+  };
+
+  const handleOrderIdChange = (event) => {
+    setOrderId(event.target.value);
   };
 
   return (
@@ -289,7 +278,7 @@ export default function Sales() {
               <input
                 type="text"
                 value={orderId}
-                onChange={(e) => setOrderId(e.target.value)}
+                onChange={handleOrderIdChange}
                 className={styles.orderInput}
                 disabled={!isOrderIdSearch}
               />
@@ -456,15 +445,7 @@ export default function Sales() {
           </div>
 
           {errorMessage && (
-            <div className={styles.errorMessage}>
-              <span>{errorMessage}</span>
-              <button
-                className={styles.closeButton}
-                onClick={closeErrorMessage}
-              >
-                x
-              </button>
-            </div>
+            <ErrorMessage message={errorMessage} onClose={closeErrorMessage} />
           )}
         </div>
 

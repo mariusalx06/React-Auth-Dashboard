@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import styles from "./NewPlanForm.module.css";
+import Loading from "./Loading";
 
 export default function NewPlanForm(props) {
   const [formData, setFormData] = useState({
@@ -66,28 +67,29 @@ export default function NewPlanForm(props) {
       if (error.response) {
         const { status, data } = error.response;
 
+        // Pass the error message to the parent
         if (status === 401) {
-          setError(
+          props.onError(
             `Unauthorized Access: ${
               data.error || "You are not authorized to perform this action."
             }`
           );
         } else if (status === 500) {
-          setError(
+          props.onError(
             `Server Issue: ${
               data.error ||
               "There was an issue with the server. Please try again later."
             }`
           );
         } else {
-          setError(
+          props.onError(
             `Error: ${
               data.error || "An unknown error occurred."
             } (Code: ${status})`
           );
         }
       } else {
-        setError(
+        props.onError(
           "Error submitting form. Please check your connection or try again."
         );
       }
@@ -98,6 +100,7 @@ export default function NewPlanForm(props) {
 
   return (
     <div className={styles.formContainer}>
+      {isSubmitting && <Loading />}
       <h2 className={styles.formTitle}>Create New Plan</h2>
 
       {success && (
@@ -123,7 +126,7 @@ export default function NewPlanForm(props) {
 
         <div className={styles.formGroup}>
           <label htmlFor="plan_price" className={styles.inputLabel}>
-            Plan Price(€):
+            Plan Price (€):
           </label>
           <input
             type="number"

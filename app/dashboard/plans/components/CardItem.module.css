@@ -1,0 +1,236 @@
+.cardContainer {
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid #e6e6e6;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 280px;
+  min-width: 280px;
+  margin: 15px;
+  min-height: 385px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  color: #1a202c;
+  flex-direction: column;
+  box-sizing: border-box;
+  position: relative;
+}
+.editableCardContainer {
+  overflow-y: auto;
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid #e6e6e6;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 280px;
+  min-width: 280px;
+  margin: 15px;
+  max-height: 385px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  color: #1a202c;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.editableCardContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.editableCardContainer::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+  border-radius: 10px;
+}
+
+.editableCardContainer::-webkit-scrollbar-thumb {
+  background-color: #f0a500;
+  border-radius: 10px;
+}
+
+.editableCardContainer::-webkit-scrollbar-thumb:hover {
+  background-color: #d88c00;
+}
+
+.editableCardContainer::-webkit-scrollbar-button {
+  display: none;
+}
+
+.cardContainer:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+}
+
+.cardTitleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.cardTitle {
+  font-size: 1.75rem;
+  font-weight: bold;
+
+  margin-bottom: 10px;
+}
+
+.cardPrice {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.cardHr {
+  border: none;
+  border-top: 2px solid #f0a500;
+  margin-bottom: 20px;
+}
+
+.cardList {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 20px;
+}
+
+.cardListItem {
+  font-size: 1rem;
+  color: #1a202c;
+  margin-bottom: 12px;
+  min-width: 250px;
+}
+
+.cardListItem:last-child {
+  margin-bottom: 0;
+}
+
+.cardBtn {
+  padding: 8px 16px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  width: 40%;
+  margin: 0px 5%;
+  font-weight: 700;
+}
+
+.cardBtnEdit {
+  background-color: #f0a500;
+  color: #1a202c;
+}
+
+.cardBtnEdit:hover {
+  background-color: #e07b00;
+  transform: scale(1.05);
+}
+
+.cardBtnDelete {
+  background-color: #d94f4f;
+  color: #1a202c;
+}
+
+.cardBtnDelete:hover {
+  background-color: #b02e2e;
+  transform: scale(1.05);
+}
+
+.cardBtnCancel {
+  background-color: #d94f4f;
+  color: #1a202c;
+}
+
+.cardBtnCancel:hover {
+  background-color: #b02e2e;
+  transform: scale(1.05);
+}
+
+.cardBtnSave {
+  background-color: #6dbe77;
+  color: #1a202c;
+}
+
+.cardBtnSave:hover {
+  background-color: #4b9f6e;
+  transform: scale(1.05);
+}
+
+.inputLabel {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 5px;
+  text-align: left;
+  display: block;
+}
+
+.inputField {
+  padding: 8px 12px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #e6e6e6;
+  background-color: #f9f9f9;
+  color: #333;
+  margin: 5px 0;
+  width: 100%;
+  box-sizing: border-box;
+  height: 35px;
+}
+
+.textareaField {
+  resize: vertical;
+  height: 80px;
+}
+
+.buttonContainer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.fiveGReady {
+  font-weight: 500;
+  color: #44c3a1;
+  font-size: 1rem;
+}
+
+.monthText {
+  font-size: 1rem;
+  color: #999999;
+}
+
+.rounded5G {
+  background-color: #f0a500;
+  padding: 7px;
+  border-radius: 50%;
+  color: #1a202c;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.cardTitleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.edittingCardTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .cardContainer::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cardContainer:hover::-webkit-scrollbar {
+    display: block;
+  }
+}
